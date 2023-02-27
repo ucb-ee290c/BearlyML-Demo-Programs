@@ -58,9 +58,9 @@
   */
 int main(void)
 {
-  /* USER CODE BEGIN 1 */{% if user_code_1 %}{{ user_code_1 }}{% else %}
+  /* USER CODE BEGIN 1 */
   
-	{% endif %}/* USER CODE END 1 */
+	/* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
   
@@ -83,19 +83,19 @@ int main(void)
   UART_init_config.stopbits = UART_STOPBITS_1;
   HAL_UART_init(UART0, &UART_init_config);
 
-  /* USER CODE BEGIN 2 */{% if user_code_2 %}{{ user_code_2 }}{% else %}
+  /* USER CODE BEGIN 2 */
 
-	{% endif %}/* USER CODE END 2 */
+	/* USER CODE END 2 */
 
   /* Infinite loop */
-  /* USER CODE BEGIN WHILE */{% if user_code_while %}{{ user_code_while }}{% else %}
+  /* USER CODE BEGIN WHILE */
 
-	while (1) {% raw %}{
+	while (1) {
 		
-		{% endraw %}{% endif %}/* USER CODE END WHILE */
+		/* USER CODE END WHILE */
 	}
 	
-	/* USER CODE BEGIN 3 */{% if user_code_3 %}{{ user_code_3 }}{% else %}
+	/* USER CODE BEGIN 3 */
 
-	{% endif %}/* USER CODE END 3 */
+	/* USER CODE END 3 */
 }
