@@ -8,22 +8,22 @@
  * 
  */
 
-#ifndef __DEMOSOC_HAL_H
-#define __DEMOSOC_HAL_H
+#ifndef __BEARLYML_HAL_H
+#define __BEARLYML_HAL_H
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "DemoSoC.h"
-#include "DemoSoC_hal_core.h"
-#include "DemoSoC_hal_clint.h"
-#include "DemoSoC_hal_gpio.h"
-#include "DemoSoC_hal_i2c.h"
-#include "DemoSoC_hal_plic.h"
-#include "DemoSoC_hal_rcc.h"
-#include "DemoSoC_hal_uart.h"
+#include "BearlyML.h"
+#include "BearlyML_hal_core.h"
+#include "BearlyML_hal_clint.h"
+#include "BearlyML_hal_gpio.h"
+#include "BearlyML_hal_i2c.h"
+#include "BearlyML_hal_plic.h"
+#include "BearlyML_hal_rcc.h"
+#include "BearlyML_hal_uart.h"
 
 
 #define SYS_CLK_FREQ  100000000                    // Hz
@@ -39,4 +39,4 @@ void HAL_delay(uint64_t time);
 }
 #endif
 
-#endif /* __DEMOSOC_HAL_H */
+#endif /* __BEARLYML_HAL_H */

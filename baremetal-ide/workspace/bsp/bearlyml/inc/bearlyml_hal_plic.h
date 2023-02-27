@@ -8,14 +8,14 @@
  * 
  */
 
-#ifndef __DEMOSOC_HAL_PLIC_H
-#define __DEMOSOC_HAL_PLIC_H
+#ifndef __BEARLYML_HAL_PLIC_H
+#define __BEARLYML_HAL_PLIC_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "demosoc_hal.h"
+#include "bearlyml_hal.h"
 
 void HAL_PLIC_disable(uint32_t hart_id, uint32_t irq_id);
 
@@ -34,4 +34,4 @@ void HAL_PLIC_completeIRQ(uint32_t hart_id, uint32_t irq_id);
 }
 #endif
 
-#endif /* __DEMOSOC_HAL_PLIC_H */
+#endif /* __BEARLYML_HAL_PLIC_H */

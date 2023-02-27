@@ -8,7 +8,7 @@
  * 
  */
 
-#include "demosoc_hal.h"
+#include "bearlyml_hal.h"
 
 __attribute__((weak)) void HAL_MachineSoftwareInterruptCallback(uint32_t hart_id) {
 //   { // debug message

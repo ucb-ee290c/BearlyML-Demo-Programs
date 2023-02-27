@@ -8,14 +8,14 @@
  * 
  */
 
-#ifndef __DEMOSOC_HAL_CLINT_H
-#define __DEMOSOC_HAL_CLINT_H
+#ifndef __BEARLYML_HAL_CLINT_H
+#define __BEARLYML_HAL_CLINT_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "demosoc_hal.h"
+#include "bearlyml_hal.h"
 
 void HAL_CLINT_triggerSoftwareInterrupt(uint32_t hartid);
 
@@ -27,4 +27,4 @@ void HAL_CLINT_setTimerInterrupt(uint64_t time);
 }
 #endif
 
-#endif /* __DEMOSOC_HAL_CLINT_H */
+#endif /* __BEARLYML_HAL_CLINT_H */

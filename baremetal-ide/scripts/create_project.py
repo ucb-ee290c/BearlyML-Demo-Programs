@@ -10,14 +10,14 @@ IDE_VERSION = "0.0.1"
 TEMPLATE_PATH = "templates"
 
 PROJECT_ROOT = "workspace"
-CHIP_NAME = "oscibear"
+CHIP_NAME = "bearlyml"
 
 
 
 jinja_template_loader = jinja2.FileSystemLoader(searchpath=TEMPLATE_PATH)
 jinja_template_env = jinja2.Environment(loader=jinja_template_loader)
 
-chip_config = json.load(open("chip_description.json"))
+chip_config = json.load(open(CHIP_NAME+"_description.json"))
 
 chip_name = chip_config.get("name")
 chip_name_lower = chip_name.lower()
