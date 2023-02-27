@@ -1,0 +1,7 @@
+../Core/Inc/sdcard_spi.h:102:20:SDCARD_setCSHigh	16	static
+../Core/Inc/sdcard_spi.h:106:20:SDCARD_setCSLow	16	static
+../Core/Src/sdcard_spi.c:10:6:SDCARD_init	24	static
+../Core/Src/sdcard_spi.c:16:9:SDCARD_transmitCommand	48	static
+../Core/Src/sdcard_spi.c:50:10:SDCARD_receiveData	32	static
+../Core/Src/sdcard_spi.c:68:13:SDCARD_initializeCard	40	static
+../Core/Src/sdcard_spi.c:146:6:SDCARD_readSector	48	static

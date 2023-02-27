@@ -1,0 +1,3011 @@
+{
+  "device": {
+    "name": {
+      "$t": "BearlyML"
+    },
+    "version": {
+      "$t": 0.1
+    },
+    "description": {
+      "$t": "BearlyML on Arty"
+    },
+    "cpu": {
+      "name": {
+        "$t": "RISCV"
+      },
+      "arch": {
+        "$t": "rv64imac"
+      },
+      "abi": {
+        "$t": "lp64"
+      },
+      "endian": {
+        "$t": "little"
+      }
+    },
+    "peripherals": {
+      "peripheral": [
+        
+        {
+          "name": {
+            "$t": "CLINT"
+          },
+          "description": {
+            "$t": "Core-Local Interruptor"
+          },
+          "groupName": {
+            "$t": "CLINT"
+          },
+          "baseAddress": {
+            "$t": "0x02000000"
+          },
+          "addressBlock": {
+            "offset": {
+              "$t": "0x0"
+            },
+            "size": {
+              "$t": "0x400"
+            },
+            "usage": {
+              "$t": "registers"
+            }
+          },
+          "registers": {
+            "register": [
+              {
+                "name": {
+                  "$t": "MSIP0"
+                },
+                "description": {
+                  "$t": "hart 0 msip bit"
+                },
+                "addressOffset": {
+                  "$t": "0x00"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "MSIP0"
+                    },
+                    "description": {
+                      "$t": "hart 0 machine mode software interrupt in progress"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 1
+                    },
+                    "enumeratedValues": {
+                      "name": {
+                        "$t": "EN0"
+                      },
+                      "usage": {
+                        "$t": "read-write"
+                      },
+                      "enumeratedValue": [
+                        {
+                          "name": {
+                            "$t": "Interrupt pending"
+                          },
+                          "description": {
+                            "$t": "Self-Boot Mode"
+                          },
+                          "value": {
+                            "$t": 1
+                          }
+                        },
+                        {
+                          "name": {
+                            "$t": "No interrupt"
+                          },
+                          "description": {
+                            "$t": "Tethered Boot Mode"
+                          },
+                          "value": {
+                            "$t": 0
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "MSIP1"
+                },
+                "description": {
+                  "$t": "hart 1 msip bit"
+                },
+                "addressOffset": {
+                  "$t": "0x04"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "MSIP1"
+                    },
+                    "description": {
+                      "$t": "hart 1 machine mode software interrupt in progress"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 1
+                    },
+                    "enumeratedValues": {
+                      "name": {
+                        "$t": "EN0"
+                      },
+                      "usage": {
+                        "$t": "read-write"
+                      },
+                      "enumeratedValue": [
+                        {
+                          "name": {
+                            "$t": "Interrupt pending"
+                          },
+                          "description": {
+                            "$t": "Self-Boot Mode"
+                          },
+                          "value": {
+                            "$t": 1
+                          }
+                        },
+                        {
+                          "name": {
+                            "$t": "No interrupt"
+                          },
+                          "description": {
+                            "$t": "Tethered Boot Mode"
+                          },
+                          "value": {
+                            "$t": 0
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "MSIP2"
+                },
+                "description": {
+                  "$t": "hart 2 msip bit"
+                },
+                "addressOffset": {
+                  "$t": "0x08"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "MSIP2"
+                    },
+                    "description": {
+                      "$t": "hart 2 machine mode software interrupt in progress"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 1
+                    },
+                    "enumeratedValues": {
+                      "name": {
+                        "$t": "EN0"
+                      },
+                      "usage": {
+                        "$t": "read-write"
+                      },
+                      "enumeratedValue": [
+                        {
+                          "name": {
+                            "$t": "Interrupt pending"
+                          },
+                          "description": {
+                            "$t": "Self-Boot Mode"
+                          },
+                          "value": {
+                            "$t": 1
+                          }
+                        },
+                        {
+                          "name": {
+                            "$t": "No interrupt"
+                          },
+                          "description": {
+                            "$t": "Tethered Boot Mode"
+                          },
+                          "value": {
+                            "$t": 0
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "MSIP3"
+                },
+                "description": {
+                  "$t": "hart 3 msip bit"
+                },
+                "addressOffset": {
+                  "$t": "0x0C"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "MSIP3"
+                    },
+                    "description": {
+                      "$t": "hart 3 machine mode software interrupt in progress"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 1
+                    },
+                    "enumeratedValues": {
+                      "name": {
+                        "$t": "EN0"
+                      },
+                      "usage": {
+                        "$t": "read-write"
+                      },
+                      "enumeratedValue": [
+                        {
+                          "name": {
+                            "$t": "Interrupt pending"
+                          },
+                          "description": {
+                            "$t": "Self-Boot Mode"
+                          },
+                          "value": {
+                            "$t": 1
+                          }
+                        },
+                        {
+                          "name": {
+                            "$t": "No interrupt"
+                          },
+                          "description": {
+                            "$t": "Tethered Boot Mode"
+                          },
+                          "value": {
+                            "$t": 0
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "MSIP4"
+                },
+                "description": {
+                  "$t": "hart 4 msip bit"
+                },
+                "addressOffset": {
+                  "$t": "0x10"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "MSIP4"
+                    },
+                    "description": {
+                      "$t": "hart 4 machine mode software interrupt in progress"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 1
+                    },
+                    "enumeratedValues": {
+                      "name": {
+                        "$t": "EN0"
+                      },
+                      "usage": {
+                        "$t": "read-write"
+                      },
+                      "enumeratedValue": [
+                        {
+                          "name": {
+                            "$t": "Interrupt pending"
+                          },
+                          "description": {
+                            "$t": "Self-Boot Mode"
+                          },
+                          "value": {
+                            "$t": 1
+                          }
+                        },
+                        {
+                          "name": {
+                            "$t": "No interrupt"
+                          },
+                          "description": {
+                            "$t": "Tethered Boot Mode"
+                          },
+                          "value": {
+                            "$t": 0
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "MTIMECMP0"
+                },
+                "description": {
+                  "$t": "hart 0 mtimecmp value"
+                },
+                "addressOffset": {
+                  "$t": "0x4000"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "MTIMECMP0"
+                    },
+                    "description": {
+                      "$t": "hart 0 machine mode timer compare value"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 64
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "MTIMECMP1"
+                },
+                "description": {
+                  "$t": "hart 1 mtimecmp value"
+                },
+                "addressOffset": {
+                  "$t": "0x4008"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "MTIMECMP1"
+                    },
+                    "description": {
+                      "$t": "hart 1 machine mode timer compare value"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 64
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "MTIMECMP2"
+                },
+                "description": {
+                  "$t": "hart 2 mtimecmp value"
+                },
+                "addressOffset": {
+                  "$t": "0x4010"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "MTIMECMP2"
+                    },
+                    "description": {
+                      "$t": "hart 2 machine mode timer compare value"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 64
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "MTIMECMP3"
+                },
+                "description": {
+                  "$t": "hart 3 mtimecmp value"
+                },
+                "addressOffset": {
+                  "$t": "0x4018"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "MTIMECMP3"
+                    },
+                    "description": {
+                      "$t": "hart 3 machine mode timer compare value"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 64
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "MTIMECMP4"
+                },
+                "description": {
+                  "$t": "hart 4 mtimecmp value"
+                },
+                "addressOffset": {
+                  "$t": "0x4020"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "MTIMECMP4"
+                    },
+                    "description": {
+                      "$t": "hart 4 machine mode timer compare value"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 64
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "MTIME"
+                },
+                "description": {
+                  "$t": "mtime value"
+                },
+                "addressOffset": {
+                  "$t": "0xBFF8"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "MTIME"
+                    },
+                    "description": {
+                      "$t": "machine mode timer value"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 64
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": {
+            "$t": "RCC"
+          },
+          "description": {
+            "$t": "Reset and Clock Control"
+          },
+          "groupName": {
+            "$t": "RCC"
+          },
+          "baseAddress": {
+            "$t": "0x00100000"
+          },
+          "addressBlock": {
+            "offset": {
+              "$t": "0x0"
+            },
+            "size": {
+              "$t": "0x400"
+            },
+            "usage": {
+              "$t": "registers"
+            }
+          },
+          "registers": {
+            "register": [
+              {
+                "name": {
+                  "$t": "TILE0_RESET"
+                },
+                "description": {
+                  "$t": "RocketTile 0 reset control"
+                },
+                "addressOffset": {
+                  "$t": "0x00"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "TILE0_RESET"
+                    },
+                    "description": {
+                      "$t": "RocketTile 0 reset control"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 1
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "TILE1_RESET"
+                },
+                "description": {
+                  "$t": "RocketTile 1 reset control"
+                },
+                "addressOffset": {
+                  "$t": "0x04"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "TILE1_RESET"
+                    },
+                    "description": {
+                      "$t": "RocketTile 1 reset control"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 1
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "TILE2_RESET"
+                },
+                "description": {
+                  "$t": "RocketTile 2 reset control"
+                },
+                "addressOffset": {
+                  "$t": "0x08"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "TILE2_RESET"
+                    },
+                    "description": {
+                      "$t": "RocketTile 2 reset control"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 1
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "TILE3_RESET"
+                },
+                "description": {
+                  "$t": "RocketTile 3 reset control"
+                },
+                "addressOffset": {
+                  "$t": "0x0C"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "TILE3_RESET"
+                    },
+                    "description": {
+                      "$t": "RocketTile 3 reset control"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 1
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "TILE4_RESET"
+                },
+                "description": {
+                  "$t": "SaturnTile reset control"
+                },
+                "addressOffset": {
+                  "$t": "0x10"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "TILE4_RESET"
+                    },
+                    "description": {
+                      "$t": "SaturnTile reset control"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 1
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": {
+            "$t": "GPIOA"
+          },
+          "description": {
+            "$t": "General purpose I/O"
+          },
+          "groupName": {
+            "$t": "GPIO"
+          },
+          "baseAddress": {
+            "$t": "0x10012000"
+          },
+          "addressBlock": {
+            "offset": {
+              "$t": "0x0"
+            },
+            "size": {
+              "$t": "0x400"
+            },
+            "usage": {
+              "$t": "registers"
+            }
+          },
+          "registers": {
+            "register": [
+              {
+                "name": {
+                  "$t": "INPUT_VAL"
+                },
+                "description": {
+                  "$t": "input value"
+                },
+                "addressOffset": {
+                  "$t": "0x00"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-only"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "VAL0"
+                      },
+                      "description": {
+                        "$t": "Input value of pin 0"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "VAL1"
+                      },
+                      "description": {
+                        "$t": "Input value of pin 1"
+                      },
+                      "bitOffset": {
+                        "$t": 1
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "VAL2"
+                      },
+                      "description": {
+                        "$t": "Input value of pin 2"
+                      },
+                      "bitOffset": {
+                        "$t": 2
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": {
+                  "$t": "INPUT_EN"
+                },
+                "description": {
+                  "$t": "input enable"
+                },
+                "addressOffset": {
+                  "$t": "0x04"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "EN0"
+                      },
+                      "description": {
+                        "$t": "Input enable control of pin 0"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "EN0"
+                        },
+                        "usage": {
+                          "$t": "read-write"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "Enabled"
+                            },
+                            "description": {
+                              "$t": "Enable input"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "Disabled"
+                            },
+                            "description": {
+                              "$t": "Disable input"
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "EN1"
+                      },
+                      "description": {
+                        "$t": "Input enable control of pin 1"
+                      },
+                      "bitOffset": {
+                        "$t": 1
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "derivedFrom": "EN0"
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "EN2"
+                      },
+                      "description": {
+                        "$t": "Input enable control of pin 2"
+                      },
+                      "bitOffset": {
+                        "$t": 2
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "derivedFrom": "EN0"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": {
+                  "$t": "OUTPUT_EN"
+                },
+                "description": {
+                  "$t": "output enable"
+                },
+                "addressOffset": {
+                  "$t": "0x08"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "EN0"
+                      },
+                      "description": {
+                        "$t": "Output enable control of pin 0"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "EN0"
+                        },
+                        "usage": {
+                          "$t": "read-write"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "Enabled"
+                            },
+                            "description": {
+                              "$t": "Enable output"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "Disabled"
+                            },
+                            "description": {
+                              "$t": "Disable output"
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "EN1"
+                      },
+                      "description": {
+                        "$t": "Output enable control of pin 1"
+                      },
+                      "bitOffset": {
+                        "$t": 1
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "derivedFrom": "EN0"
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "EN2"
+                      },
+                      "description": {
+                        "$t": "Output enable control of pin 2"
+                      },
+                      "bitOffset": {
+                        "$t": 2
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "derivedFrom": "EN0"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": {
+                  "$t": "OUTPUT_VAL"
+                },
+                "description": {
+                  "$t": "output value"
+                },
+                "addressOffset": {
+                  "$t": "0x0C"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "VAL0"
+                      },
+                      "description": {
+                        "$t": "Output value of pin 0"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "VAL0"
+                        },
+                        "usage": {
+                          "$t": "read-write"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "High"
+                            },
+                            "description": {
+                              "$t": "Set output to logic high"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "Low"
+                            },
+                            "description": {
+                              "$t": "Set output to logic low"
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "VAL1"
+                      },
+                      "description": {
+                        "$t": "Output value of pin 1"
+                      },
+                      "bitOffset": {
+                        "$t": 1
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "derivedFrom": "VAL0"
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "VAL2"
+                      },
+                      "description": {
+                        "$t": "Output value of pin 2"
+                      },
+                      "bitOffset": {
+                        "$t": 2
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "derivedFrom": "VAL0"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": {
+            "$t": "UART0"
+          },
+          "description": {
+            "$t": "Universal Asynchronous Receiver/Transmitter"
+          },
+          "groupName": {
+            "$t": "UART"
+          },
+          "baseAddress": {
+            "$t": "0x1001A000"
+          },
+          "addressBlock": {
+            "offset": {
+              "$t": "0x0"
+            },
+            "size": {
+              "$t": "0x400"
+            },
+            "usage": {
+              "$t": "registers"
+            }
+          },
+          "registers": {
+            "register": [
+              {
+                "name": {
+                  "$t": "TXDATA"
+                },
+                "description": {
+                  "$t": "transmit data register"
+                },
+                "addressOffset": {
+                  "$t": "0x00"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "DATA"
+                      },
+                      "description": {
+                        "$t": "Transmit data"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 8
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "FULL"
+                      },
+                      "description": {
+                        "$t": "Transmit FIFO full"
+                      },
+                      "bitOffset": {
+                        "$t": 31
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "FULL"
+                        },
+                        "usage": {
+                          "$t": "read-only"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "Full"
+                            },
+                            "description": {
+                              "$t": "Transmit FIFO is full"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "Not full"
+                            },
+                            "description": {
+                              "$t": "Transmit FIFO is not full"
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": {
+                  "$t": "RXDATA"
+                },
+                "description": {
+                  "$t": "receive data register"
+                },
+                "addressOffset": {
+                  "$t": "0x04"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-only"
+                },
+                "resetValue": {
+                  "$t": "0x80000000"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "DATA"
+                      },
+                      "description": {
+                        "$t": "Received data"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 8
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "EMPTY"
+                      },
+                      "description": {
+                        "$t": "Receive FIFO empty"
+                      },
+                      "bitOffset": {
+                        "$t": 31
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "EMPTY"
+                        },
+                        "usage": {
+                          "$t": "read-only"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "Empty"
+                            },
+                            "description": {
+                              "$t": "Receive FIFO is empty"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "Not empty"
+                            },
+                            "description": {
+                              "$t": "Receive FIFO is not empty"
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": {
+                  "$t": "TXCTRL"
+                },
+                "description": {
+                  "$t": "transmit control register"
+                },
+                "addressOffset": {
+                  "$t": "0x08"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "TXEN"
+                      },
+                      "description": {
+                        "$t": "Transmit enable"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "TXEN"
+                        },
+                        "usage": {
+                          "$t": "read-write"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "Enabled"
+                            },
+                            "description": {
+                              "$t": "Transmit enabled"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "Disabled"
+                            },
+                            "description": {
+                              "$t": "Transmit disabled"
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "NSTOP"
+                      },
+                      "description": {
+                        "$t": "Number of stop bits"
+                      },
+                      "bitOffset": {
+                        "$t": 1
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "NSTOP"
+                        },
+                        "usage": {
+                          "$t": "read-write"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "2 stop bits"
+                            },
+                            "description": {
+                              "$t": "2 stop bits"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "1 stop bit"
+                            },
+                            "description": {
+                              "$t": "1 stop bit"
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "TXCNT"
+                      },
+                      "description": {
+                        "$t": "Transmit watermark level"
+                      },
+                      "bitOffset": {
+                        "$t": 16
+                      },
+                      "bitWidth": {
+                        "$t": 3
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": {
+                  "$t": "RXCTRL"
+                },
+                "description": {
+                  "$t": "receive control register"
+                },
+                "addressOffset": {
+                  "$t": "0x0C"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "RXEN"
+                      },
+                      "description": {
+                        "$t": "Receive enable"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "RXEN"
+                        },
+                        "usage": {
+                          "$t": "read-write"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "Enabled"
+                            },
+                            "description": {
+                              "$t": "Receive enabled"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "Disabled"
+                            },
+                            "description": {
+                              "$t": "Receive disabled"
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "RXCNT"
+                      },
+                      "description": {
+                        "$t": "Receive watermark level"
+                      },
+                      "bitOffset": {
+                        "$t": 16
+                      },
+                      "bitWidth": {
+                        "$t": 3
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": {
+                  "$t": "DIV"
+                },
+                "description": {
+                  "$t": "baudrate divisor"
+                },
+                "addressOffset": {
+                  "$t": "0x18"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x000000AD"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "DIV"
+                    },
+                    "description": {
+                      "$t": "Baudrate divisor"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 16
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": {
+            "$t": "QSPI0"
+          },
+          "description": {
+            "$t": "Serial Peripheral Interface"
+          },
+          "groupName": {
+            "$t": "QSPI"
+          },
+          "baseAddress": {
+            "$t": "0x10020000"
+          },
+          "addressBlock": {
+            "offset": {
+              "$t": "0x0"
+            },
+            "size": {
+              "$t": "0x400"
+            },
+            "usage": {
+              "$t": "registers"
+            }
+          },
+          "registers": {
+            "register": [
+              {
+                "name": {
+                  "$t": "SCKDIV"
+                },
+                "description": {
+                  "$t": "serial clock divisor"
+                },
+                "addressOffset": {
+                  "$t": "0x00"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000003"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "DIV"
+                    },
+                    "description": {
+                      "$t": "Divisor for serial clock"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 12
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "SCKMODE"
+                },
+                "description": {
+                  "$t": "serial clock mode"
+                },
+                "addressOffset": {
+                  "$t": "0x04"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "PHA"
+                      },
+                      "description": {
+                        "$t": "Serial clock phase"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "PHA"
+                        },
+                        "usage": {
+                          "$t": "read-write"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "Idle High"
+                            },
+                            "description": {
+                              "$t": "SCLK idle state is high"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "Idle Low"
+                            },
+                            "description": {
+                              "$t": "SCLK idle state is low"
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "POL"
+                      },
+                      "description": {
+                        "$t": "Serial clock polarity"
+                      },
+                      "bitOffset": {
+                        "$t": 1
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "POL"
+                        },
+                        "usage": {
+                          "$t": "read-write"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "Sample on 2nd edge"
+                            },
+                            "description": {
+                              "$t": "Data is sampled at second edge of SCLK"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "Sample on 1st edge"
+                            },
+                            "description": {
+                              "$t": "Data is sampled at first edge of SCLK"
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": {
+                  "$t": "CSID"
+                },
+                "description": {
+                  "$t": "chip select ID"
+                },
+                "addressOffset": {
+                  "$t": "0x10"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "CSID"
+                    },
+                    "description": {
+                      "$t": "Chip select ID."
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 32
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "CSDEF"
+                },
+                "description": {
+                  "$t": "chip select default value"
+                },
+                "addressOffset": {
+                  "$t": "0x14"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "CSDEF"
+                    },
+                    "description": {
+                      "$t": "Chip select default value"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 32
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "CSMODE"
+                },
+                "description": {
+                  "$t": "chip select mode"
+                },
+                "addressOffset": {
+                  "$t": "0x18"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "MODE"
+                    },
+                    "description": {
+                      "$t": "Chip select mode"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 2
+                    },
+                    "enumeratedValues": {
+                      "name": {
+                        "$t": "MODE"
+                      },
+                      "usage": {
+                        "$t": "read-write"
+                      },
+                      "enumeratedValue": [
+                        {
+                          "name": {
+                            "$t": "OFF"
+                          },
+                          "description": {
+                            "$t": "Disable hardware control of the CS pin"
+                          },
+                          "value": {
+                            "$t": 2
+                          }
+                        },
+                        {
+                          "name": {
+                            "$t": "HOLD"
+                          },
+                          "description": {
+                            "$t": "Keep CS continuously asserted after the initial frame"
+                          },
+                          "value": {
+                            "$t": 1
+                          }
+                        },
+                        {
+                          "name": {
+                            "$t": "AUTO"
+                          },
+                          "description": {
+                            "$t": "Assert/deassert CS at the beginning/end of each frame"
+                          },
+                          "value": {
+                            "$t": 0
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "DELAY0"
+                },
+                "description": {
+                  "$t": "delay control 0"
+                },
+                "addressOffset": {
+                  "$t": "0x28"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00010001"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "CSSCK"
+                      },
+                      "description": {
+                        "$t": "CS to SCK delay"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 8
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "SCKCS"
+                      },
+                      "description": {
+                        "$t": "SCK to CS delay"
+                      },
+                      "bitOffset": {
+                        "$t": 16
+                      },
+                      "bitWidth": {
+                        "$t": 8
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": {
+                  "$t": "DELAY1"
+                },
+                "description": {
+                  "$t": "delay control 1"
+                },
+                "addressOffset": {
+                  "$t": "0x2C"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000001"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "INTERCS"
+                      },
+                      "description": {
+                        "$t": "Minimum CS inactive time"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 8
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "INTERXFR"
+                      },
+                      "description": {
+                        "$t": "Maximum interframe delay"
+                      },
+                      "bitOffset": {
+                        "$t": 16
+                      },
+                      "bitWidth": {
+                        "$t": 8
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": {
+                  "$t": "FMT"
+                },
+                "description": {
+                  "$t": "frame format"
+                },
+                "addressOffset": {
+                  "$t": "0x40"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00080000"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "PROTO"
+                      },
+                      "description": {
+                        "$t": "SPI protocol"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 2
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "PROTO"
+                        },
+                        "usage": {
+                          "$t": "read-write"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "Quad"
+                            },
+                            "description": {
+                              "$t": "QuadSPI mode, use DQ0, DQ1, DQ2, DQ3"
+                            },
+                            "value": {
+                              "$t": 2
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "Dual"
+                            },
+                            "description": {
+                              "$t": "DualSPI mode, use DQ0, DQ1"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "Single"
+                            },
+                            "description": {
+                              "$t": "Single SPI mode, use DQ0 as MOSI, DQ1 as MISO"
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "ENDIAN"
+                      },
+                      "description": {
+                        "$t": "SPI endianess"
+                      },
+                      "bitOffset": {
+                        "$t": 2
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "ENDIAN"
+                        },
+                        "usage": {
+                          "$t": "read-write"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "LSB"
+                            },
+                            "description": {
+                              "$t": "least-significant bit first"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "MSB"
+                            },
+                            "description": {
+                              "$t": "most-significant bit first"
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "DIR"
+                      },
+                      "description": {
+                        "$t": "SPI I/O direction"
+                      },
+                      "bitOffset": {
+                        "$t": 3
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "DIR"
+                        },
+                        "usage": {
+                          "$t": "read-write"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "TX"
+                            },
+                            "description": {
+                              "$t": "The receive FIFO is not populated"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "RX"
+                            },
+                            "description": {
+                              "$t": "For dual and quad protocols, the DQ pins are tri-stated. For the single protocol, the DQ0 pin is driven with the transmit data as normal."
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "LEN"
+                      },
+                      "description": {
+                        "$t": "number of bits per frame"
+                      },
+                      "bitOffset": {
+                        "$t": 16
+                      },
+                      "bitWidth": {
+                        "$t": 4
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": {
+                  "$t": "TXDATA"
+                },
+                "description": {
+                  "$t": "transmit data"
+                },
+                "addressOffset": {
+                  "$t": "0x48"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "DATA"
+                      },
+                      "description": {
+                        "$t": "Transmit data"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 8
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "FULL"
+                      },
+                      "description": {
+                        "$t": "Transmit FIFO full"
+                      },
+                      "bitOffset": {
+                        "$t": 31
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "FULL"
+                        },
+                        "usage": {
+                          "$t": "read-only"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "Full"
+                            },
+                            "description": {
+                              "$t": "Transmit FIFO is full"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "Not full"
+                            },
+                            "description": {
+                              "$t": "Transmit FIFO is not full"
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": {
+                  "$t": "RXDATA"
+                },
+                "description": {
+                  "$t": "receive data register"
+                },
+                "addressOffset": {
+                  "$t": "0x4C"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-only"
+                },
+                "resetValue": {
+                  "$t": "0x80000000"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "DATA"
+                      },
+                      "description": {
+                        "$t": "Received data"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 8
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "EMPTY"
+                      },
+                      "description": {
+                        "$t": "Receive FIFO empty"
+                      },
+                      "bitOffset": {
+                        "$t": 31
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "EMPTY"
+                        },
+                        "usage": {
+                          "$t": "read-only"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "Empty"
+                            },
+                            "description": {
+                              "$t": "Receive FIFO is empty"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "Not empty"
+                            },
+                            "description": {
+                              "$t": "Receive FIFO is not empty"
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": {
+                  "$t": "FCTRL"
+                },
+                "description": {
+                  "$t": "Flash interface control"
+                },
+                "addressOffset": {
+                  "$t": "0x60"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000001"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "EN"
+                    },
+                    "description": {
+                      "$t": "SPI Flash mode select"
+                    },
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 1
+                    },
+                    "enumeratedValues": {
+                      "name": {
+                        "$t": "EN"
+                      },
+                      "usage": {
+                        "$t": "read-write"
+                      },
+                      "enumeratedValue": [
+                        {
+                          "name": {
+                            "$t": "Enabled"
+                          },
+                          "description": {
+                            "$t": "Flash mode enabled"
+                          },
+                          "value": {
+                            "$t": 1
+                          }
+                        },
+                        {
+                          "name": {
+                            "$t": "Disabled"
+                          },
+                          "description": {
+                            "$t": "Flash mode disabled"
+                          },
+                          "value": {
+                            "$t": 0
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "FFMT"
+                },
+                "description": {
+                  "$t": "Flash instruction format"
+                },
+                "addressOffset": {
+                  "$t": "0x60"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000004"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "EN"
+                      },
+                      "description": {
+                        "$t": "enable sending of command"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      },
+                      "enumeratedValues": {
+                        "name": {
+                          "$t": "EN"
+                        },
+                        "usage": {
+                          "$t": "read-write"
+                        },
+                        "enumeratedValue": [
+                          {
+                            "name": {
+                              "$t": "Enabled"
+                            },
+                            "description": {
+                              "$t": "command enabled"
+                            },
+                            "value": {
+                              "$t": 1
+                            }
+                          },
+                          {
+                            "name": {
+                              "$t": "Disabled"
+                            },
+                            "description": {
+                              "$t": "command  disabled"
+                            },
+                            "value": {
+                              "$t": 0
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "ADDR_LEN"
+                      },
+                      "description": {
+                        "$t": "Number of address bytes"
+                      },
+                      "bitOffset": {
+                        "$t": 1
+                      },
+                      "bitWidth": {
+                        "$t": 3
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "PAD_CNT"
+                      },
+                      "description": {
+                        "$t": "Number of dummy cycles"
+                      },
+                      "bitOffset": {
+                        "$t": 4
+                      },
+                      "bitWidth": {
+                        "$t": 4
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "CMD_PROTO"
+                      },
+                      "description": {
+                        "$t": "Protocol for transmitting command"
+                      },
+                      "bitOffset": {
+                        "$t": 8
+                      },
+                      "bitWidth": {
+                        "$t": 2
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "ADDR_PROTO"
+                      },
+                      "description": {
+                        "$t": "Protocol for transmitting address and padding"
+                      },
+                      "bitOffset": {
+                        "$t": 10
+                      },
+                      "bitWidth": {
+                        "$t": 2
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "DATA_PROTO"
+                      },
+                      "description": {
+                        "$t": "Protocol for receiving data"
+                      },
+                      "bitOffset": {
+                        "$t": 12
+                      },
+                      "bitWidth": {
+                        "$t": 2
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "CMD_CODE"
+                      },
+                      "description": {
+                        "$t": "Value of command byte"
+                      },
+                      "bitOffset": {
+                        "$t": 16
+                      },
+                      "bitWidth": {
+                        "$t": 8
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "PAD_CODE"
+                      },
+                      "description": {
+                        "$t": "First 8 bits to transmit during dummy cycles"
+                      },
+                      "bitOffset": {
+                        "$t": 24
+                      },
+                      "bitWidth": {
+                        "$t": 8
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": {
+            "$t": "I2C0"
+          },
+          "description": {
+            "$t": "Inter-Integrated Circuit"
+          },
+          "groupName": {
+            "$t": "I2C"
+          },
+          "baseAddress": {
+            "$t": "0x10024000"
+          },
+          "addressBlock": {
+            "offset": {
+              "$t": "0x0"
+            },
+            "size": {
+              "$t": "0x400"
+            },
+            "usage": {
+              "$t": "registers"
+            }
+          },
+          "registers": {
+            "register": [
+              {
+                "name": {
+                  "$t": "PRESCAL_LO"
+                },
+                "description": {},
+                "addressOffset": {
+                  "$t": "0x00"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x000000FF"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "PRESCAL_LO"
+                    },
+                    "description": {},
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 8
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "PRESCAL_HI"
+                },
+                "description": {},
+                "addressOffset": {
+                  "$t": "0x04"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x000000FF"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "PRESCAL_HI"
+                    },
+                    "description": {},
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 8
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "CTRL"
+                },
+                "description": {},
+                "addressOffset": {
+                  "$t": "0x08"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "IEN"
+                      },
+                      "description": {
+                        "$t": "interrupt enable"
+                      },
+                      "bitOffset": {
+                        "$t": 6
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "EN"
+                      },
+                      "description": {
+                        "$t": "enable"
+                      },
+                      "bitOffset": {
+                        "$t": 7
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": {
+                  "$t": "DATA"
+                },
+                "description": {},
+                "addressOffset": {
+                  "$t": "0x0C"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": {
+                    "name": {
+                      "$t": "DATA"
+                    },
+                    "description": {},
+                    "bitOffset": {
+                      "$t": 0
+                    },
+                    "bitWidth": {
+                      "$t": 8
+                    }
+                  }
+                }
+              },
+              {
+                "name": {
+                  "$t": "STAT"
+                },
+                "description": {},
+                "addressOffset": {
+                  "$t": "0x10"
+                },
+                "size": {
+                  "$t": "0x20"
+                },
+                "access": {
+                  "$t": "read-write"
+                },
+                "resetValue": {
+                  "$t": "0x00000000"
+                },
+                "fields": {
+                  "field": [
+                    {
+                      "name": {
+                        "$t": "IF"
+                      },
+                      "description": {
+                        "$t": "interrupt pending"
+                      },
+                      "bitOffset": {
+                        "$t": 0
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "TIP"
+                      },
+                      "description": {
+                        "$t": "transfer in progress"
+                      },
+                      "bitOffset": {
+                        "$t": 1
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "ACK"
+                      },
+                      "description": {
+                        "$t": "acknowledge bit enabled"
+                      },
+                      "bitOffset": {
+                        "$t": 3
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "WR"
+                      },
+                      "description": {
+                        "$t": "write to slave"
+                      },
+                      "bitOffset": {
+                        "$t": 4
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "RD"
+                      },
+                      "description": {
+                        "$t": "read from slave"
+                      },
+                      "bitOffset": {
+                        "$t": 5
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "BUSY/STO"
+                      },
+                      "description": {
+                        "$t": "busy / stop condition"
+                      },
+                      "bitOffset": {
+                        "$t": 6
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      }
+                    },
+                    {
+                      "name": {
+                        "$t": "RXACK/STA"
+                      },
+                      "description": {
+                        "$t": "acknowledge status / start condition"
+                      },
+                      "bitOffset": {
+                        "$t": 7
+                      },
+                      "bitWidth": {
+                        "$t": 1
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "derivedFrom": "I2C0",
+          "name": {
+            "$t": "I2C1"
+          },
+          "baseAddress": {
+            "$t": "0x10025000U"
+          }
+        }
+      ]
+    }
+  }
+}

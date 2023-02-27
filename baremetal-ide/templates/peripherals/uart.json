@@ -1,0 +1,50 @@
+{
+  "id": "UARTv1.0",
+  "name": "UART",
+  "registers": [
+    {
+    "permission": "RW",
+    "address": 0,
+    "size": 32,
+    "name": "TXDATA",
+    "description": "Transmit data register",
+    "fields": [
+      {
+
+    }]
+    },
+    {
+      "permission": "R",
+      "address": 4,
+      "size": 32,
+      "name": "RXDATA",
+      "description": "Receive data register",
+      "fields": [
+        {
+  
+      }]
+    },
+    {
+      "permission": "RW",
+      "address": 8,
+      "size": 32,
+      "name": "TXCTRL",
+      "description": "Transmit control register",
+      "fields": [
+        {
+  
+      }]
+    },
+    {
+      "permission": "RW",
+      "address": 12,
+      "size": 32,
+      "name": "RXCTRL",
+      "description": "Receive control register",
+      "fields": [
+        {
+  
+      }]
+    }
+  ]
+}

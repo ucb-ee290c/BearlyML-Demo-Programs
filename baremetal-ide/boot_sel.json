@@ -1,0 +1,95 @@
+{
+  "name": {
+    "$t": "BOOT_SELECT"
+  },
+  "description": {
+    "$t": "Boot Selection Pin"
+  },
+  "groupName": {
+    "$t": "BOOT_SELECT"
+  },
+  "baseAddress": {
+    "$t": "0x00000000"
+  },
+  "addressBlock": {
+    "offset": {
+      "$t": "0x0"
+    },
+    "size": {
+      "$t": "0x400"
+    },
+    "usage": {
+      "$t": "registers"
+    }
+  },
+  "registers": {
+    "register": {
+      "name": {
+        "$t": "BOOT_SEL"
+      },
+      "description": {
+        "$t": "boot select"
+      },
+      "addressOffset": {
+        "$t": "0x00"
+      },
+      "size": {
+        "$t": "0x20"
+      },
+      "access": {
+        "$t": "read-only"
+      },
+      "resetValue": {
+        "$t": "0x00000000"
+      },
+      "fields": {
+        "field": {
+          "name": {
+            "$t": "VAL0"
+          },
+          "description": {
+            "$t": "Input value of pin 0"
+          },
+          "bitOffset": {
+            "$t": 0
+          },
+          "bitWidth": {
+            "$t": 1
+          },
+          "enumeratedValues": {
+            "name": {
+              "$t": "EN0"
+            },
+            "usage": {
+              "$t": "read-only"
+            },
+            "enumeratedValue": [
+              {
+                "name": {
+                  "$t": "Self Boot"
+                },
+                "description": {
+                  "$t": "Self-Boot Mode"
+                },
+                "value": {
+                  "$t": 1
+                }
+              },
+              {
+                "name": {
+                  "$t": "Tethered"
+                },
+                "description": {
+                  "$t": "Tethered Boot Mode"
+                },
+                "value": {
+                  "$t": 0
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
