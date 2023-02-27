@@ -152,8 +152,8 @@ typedef struct {
   __IO uint32_t LOOP_ALG_IC;                // 0x18
   __IO uint32_t LOOP_ALG_GA;                // 0x1C
   __IO uint32_t LOOP_ALG_CF;                // 0x20
-  __IO uint32_t LOOP_DLG_KP;                // 0x24
-  __IO uint32_t LOOP_DLG_KI;                // 0x28
+  __IO uint32_t LOOP_DLF_KP;                // 0x24
+  __IO uint32_t LOOP_DLF_KI;                // 0x28
   __IO uint32_t BPD_PD;                     // 0x2C
   __IO uint32_t DIV_SEL_CLK_DLF;            // 0x30
   __IO uint32_t DIV_SEL_CLK_DIV;            // 0x34

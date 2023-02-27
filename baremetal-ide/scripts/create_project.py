@@ -210,7 +210,7 @@ def createUserTemplate():
         chipname=chip_name_lower
         )
         
-    main_c_path = os.path.join(os.getcwd(), PROJECT_ROOT, "core", "src", "main.c")
+    main_c_path = os.path.join(PROJECT_ROOT, "core", "src", "main.c")
 
     user_code_1 = ""
     user_code_2 = ""
@@ -253,12 +253,39 @@ def createUserTemplate():
         )
         
 
+def createDebug():
+    debug_folder_path = os.path.join(PROJECT_ROOT, "debug")
+    os.makedirs(debug_folder_path, exist_ok=True)
+
+    jtag_cfg_path = os.path.join(debug_folder_path, chip_name_lower+".cfg")
+    jtag_svd_path = os.path.join(debug_folder_path, chip_name_lower+".svd")
+
+    createFromTemplate(
+        jtag_cfg_path,
+        "chipname.cfg"
+        )
+    
+    with open(jtag_svd_path, "w") as f:
+        f.write("")
+    
+    
+    vscode_folder_path = os.path.join(PROJECT_ROOT, ".vscode")
+    os.makedirs(vscode_folder_path, exist_ok=True)
+
+    launchfile_path = os.path.join(vscode_folder_path, "launch.json")
+    
+    createFromTemplate(
+        launchfile_path,
+        "launch.json",
+        chip_name=chip_name_lower
+        )
+    
+
+
 # clear()
 
 createDirectories()
-
 createMakeFile()
-
 createBspFiles()
-
 createUserTemplate()
+createDebug()
