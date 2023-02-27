@@ -210,33 +210,37 @@ def createUserTemplate():
         chipname=chip_name_lower
         )
         
-        
-    main_c_path = os.path.join(PROJECT_ROOT, "core", "src", "main.c")
+    main_c_path = os.path.join(os.getcwd(), PROJECT_ROOT, "core", "src", "main.c")
 
     user_code_1 = ""
     user_code_2 = ""
     user_code_while = ""
     user_code_3 = ""
+    
 
-    if os.path.exists(main_c_path):
+    if os.path.isfile(main_c_path):
         with open(main_c_path, "r") as f:
             content = f.read()
 
         match = re.search(r"\s*\/\* USER CODE BEGIN 1 \*\/(.*)\/\s*\* USER CODE END 1 \*\/", content, re.DOTALL)
         if match:
             user_code_1 = match.group(1)
+            print("user code 1 detected")
 
         match = re.search(r"\s*\/\* USER CODE BEGIN 2 \*\/(.*)\/\s*\* USER CODE END 2 \*\/", content, re.DOTALL)
         if match:
             user_code_2 = match.group(1)
+            print("user code 2 detected")
             
         match = re.search(r"\s*\/\* USER CODE BEGIN WHILE \*\/(.*)\/\s*\* USER CODE END WHILE \*\/", content, re.DOTALL)
         if match:
             user_code_while = match.group(1)
+            print("user code while detected")
             
         match = re.search(r"\s*\/\* USER CODE BEGIN 3 \*\/(.*)\/\s*\* USER CODE END 3 \*\/", content, re.DOTALL)
         if match:
             user_code_3 = match.group(1)
+            print("user code 3 detected")
     
     
     createFromTemplate(
@@ -249,7 +253,7 @@ def createUserTemplate():
         )
         
 
-clear()
+# clear()
 
 createDirectories()
 
