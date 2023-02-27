@@ -1,6 +1,6 @@
 
-#ifndef __{{ chipname | upper }}_H
-#define __{{ chipname | upper }}_H
+#ifndef ___H
+#define ___H
 
 #ifdef __cplusplus
 extern "C" {
@@ -374,4 +374,4 @@ typedef struct {
 }
 #endif
 
-#endif /* __{{ chipname | upper }}_H */
+#endif /* ___H */

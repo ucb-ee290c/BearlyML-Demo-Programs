@@ -24,8 +24,8 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "{{ chipname }}_hal.h"
-{% if additional_includes %}{{ additional_includes }}{% endif %}
+#include "bearlyml_hal.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 

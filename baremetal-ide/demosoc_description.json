@@ -1,0 +1,84 @@
+{
+  "name": "DemoSoC",
+  "version": 0.8,
+  "description": "Just a Chipyard demo SoC",
+  "harts": [
+    {
+      "name": "Rocket",
+      "arch": "rv64imac",
+      "abi": "lp64",
+      "codemodel": "medany",
+      "freq": 100000000
+    }
+  ],
+  "peripherals": [
+    {
+      "name": "DEBUG_CONTROLLER",
+      "description": "Debug Controller",
+      "group": "DEBUG_CONTROLLER",
+      "baseAddress": "0x00000000",
+      "addressBlock": {
+        "offset": "0x0",
+        "size": "0x400",
+        "usage": "registers"
+      },
+      "registers": {}
+    },
+    {
+      "name": "ERROR_DEVICE",
+      "description": "Error Device",
+      "group": "ERROR_DEVICE",
+      "baseAddress": "0x00003000",
+      "addressBlock": {
+        "offset": "0x0",
+        "size": "0x400",
+        "usage": "registers"
+      },
+      "registers": {}
+    },
+    {
+      "name": "BOOT_SEL",
+      "description": "Boot mode selection",
+      "group": "BOOT_SEL",
+      "baseAddress": "0x00003000",
+      "addressBlock": {
+        "offset": "0x0",
+        "size": "0x400",
+        "usage": "registers"
+      },
+      "registers": [
+        {
+          "name": "BOOT_SEL",
+          "description": "Boot address selection",
+          "addressOffset": "0x00",
+          "size": "0x20",
+          "access": "read-only",
+          "resetValue": "0x00000000",
+          "fields": [
+            {
+              "name": "BOOT_SEL",
+              "description": "boot mode selection",
+              "bitOffset": 0,
+              "bitWidth": 1,
+              "access": "read-only",
+              "enumeratedValues": {
+                "enumeratedValue": [
+                  {
+                    "name": "QSPI",
+                    "description": "Self-Boot Mode",
+                    "value": 1
+                  },
+                  {
+                    "name": "WFI",
+                    "description": "Tethered Boot Mode",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

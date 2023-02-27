@@ -8,14 +8,14 @@
  * 
  */
 
-#ifndef __{{ chipname | upper }}_HAL_UART_H
-#define __{{ chipname | upper }}_HAL_UART_H
+#ifndef __BEARLYML_HAL_UART_H
+#define __BEARLYML_HAL_UART_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "{{ chipname }}_hal.h"
+#include "bearlyml_hal.h"
 
 #define UART_FIFO_DEPTH                 8
 
@@ -55,4 +55,4 @@ Status HAL_UART_transmit(UART_TypeDef *UARTx, uint8_t *data, uint16_t size, uint
 }
 #endif
 
-#endif /* __{{ chipname | upper }}_HAL_UART_H */
+#endif /* __BEARLYML_HAL_UART_H */
