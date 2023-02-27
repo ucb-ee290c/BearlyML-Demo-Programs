@@ -1,0 +1,170 @@
+
+#include "main.h"
+
+#include <inttypes.h>
+#include <stdio.h>
+#define STR1(x) #x
+#ifndef STR
+#define STR(x) STR1(x)
+#endif
+
+#define CAT_(A, B) A##B
+#define CAT(A, B) CAT_(A, B)
+
+#define ROCC_INSTRUCTION_R_R_R(x, rd, rs1, rs2, func7)                               \
+  {                                                                                  \
+    asm volatile(                                                                    \
+        ".insn r " STR(CAT(CUSTOM_, x)) ", " STR(0x7) ", " STR(func7) ", %0, %1, %2" \
+        : "=r"(rd)                                                                   \
+        : "r"(rs1), "r"(rs2));                                                       \
+  }
+
+
+#define ROCC_INSTRUCTION_0_R_R(x, rs1, rs2, func7)                                   \
+  {                                                                                  \
+    asm volatile(                                                                    \
+        ".insn r " STR(CAT(CUSTOM_, x)) ", " STR(0x3) ", " STR(func7) ", x0, %0, %1" \
+        :                                                                            \
+        : "r"(rs1), "r"(rs2));                                                       \
+  }
+
+
+    uint8_t dense_matrix[] = {
+      1,  0,  0,  0,  0,  0,  0,  0,    1,  0,  0,  0,  0,  0,  0,  0,    1,  0,  0,  0,  0,  0,  0,  0,
+      0,  2,  0,  0,  0,  0,  0,  0,    0,  2,  0,  0,  0,  0,  0,  0,    0,  2,  0,  0,  0,  0,  0,  0,
+      0,  0,  3,  0,  0,  0,  0,  0,    0,  0,  3,  0,  0,  0,  0,  0,    0,  0,  3,  0,  0,  0,  0,  0,
+      0,  0,  0,  4,  0,  0,  0,  0,    0,  0,  0,  4,  0,  0,  0,  0,    0,  0,  0,  4,  0,  0,  0,  0,
+      0,  0,  0,  0,  5,  0,  0,  0,    0,  0,  0,  0,  5,  0,  0,  0,    0,  0,  0,  0,  5,  0,  0,  0,
+      0,  0,  0,  0,  0,  6,  0,  0,    0,  0,  0,  0,  0,  6,  0,  0,    0,  0,  0,  0,  0,  6,  0,  0,
+      0,  0,  0,  0,  0,  0,  7,  0,    0,  0,  0,  0,  0,  0,  7,  0,    0,  0,  0,  0,  0,  0,  7,  0,
+      0,  0,  0,  0,  0,  0,  0,  8,    0,  0,  0,  0,  0,  0,  0,  8,    0,  0,  0,  0,  0,  0,  0,  8,
+      0,  0,  0,  0,  0,  0,  0,  0,    0,  0,  0,  0,  0,  0,  0,  0,    0,  0,  0,  0,  0,  0,  0,  0,
+      0,  0,  0,  0,  0,  0,  0,  0,    0,  0,  0,  0,  0,  0,  0,  0,    0,  0,  0,  0,  0,  0,  0,  0,
+      0,  0,  0,  0,  0,  0,  0,  0,    0,  0,  0,  0,  0,  0,  0,  0,    0,  0,  0,  0,  0,  0,  0,  0,
+      0,  0,  0,  0,  0,  0,  0,  0,    0,  0,  0,  0,  0,  0,  0,  0,    0,  0,  0,  0,  0,  0,  0,  0,
+      0,  0,  0,  0,  0,  0,  0,  0,    0,  0,  0,  0,  0,  0,  0,  0,    0,  0,  0,  0,  0,  0,  0,  0,
+      };
+    uint8_t sparse_row[] = {1,0, 2,3, 3,4, 2,6, 1,7, 5,10, 2,11, 1,12};
+    uint8_t output_buf[1024];
+    uint8_t sparse_row_size = 8;
+    uint8_t dense_matrix_size = 3;
+
+char str[64];
+uint8_t hartid;
+uint8_t hartid_char;
+
+// void HAL_MachineSoftwareInterruptCallback(uint32_t hartid) {
+//   sprintf(str, "software interrupt!\n");
+//   HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+// }
+
+int main() {
+  UART_InitTypeDef UART_init_config;
+  UART_init_config.baudrate = 115200;
+  UART_init_config.mode = UART_MODE_TX_RX;
+  UART_init_config.stopbits = UART_STOPBITS_1;
+  HAL_UART_init(UART0, &UART_init_config);
+
+
+  while (1) {
+    sprintf(str, "load output buf\n");
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+
+    ROCC_INSTRUCTION_0_R_R(0, output_buf, 0, 2);
+
+    sprintf(str, "load dense mat\n");
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    
+    ROCC_INSTRUCTION_0_R_R(0, dense_matrix, dense_matrix_size, 1);
+
+    sprintf(str, "load sparse row\n");
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    
+    ROCC_INSTRUCTION_0_R_R(0, sparse_row, sparse_row_size, 0);
+
+    
+    
+    sprintf(str, "fence\n");
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+
+    asm volatile("fence");
+
+    
+    sprintf(str, "result: \n[");
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+
+    for (uint16_t i=0; i<24; i+=1) {
+      sprintf(str, "%d ", output_buf[i]);
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    }
+
+    sprintf(str, "]\n");
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    HAL_delay(100);
+  }
+
+
+
+
+
+  // // GPIO_InitTypeDef GPIO_init_config;
+  // // GPIO_init_config.mode = GPIO_MODE_OUTPUT;
+  // // GPIO_init_config.pull = GPIO_PULL_NONE;
+  // // GPIO_init_config.drive_strength = GPIO_DS_WEAK;
+  // // HAL_GPIO_init(GPIOA, &GPIO_init_config, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
+
+  // // HAL_GPIO_writePin(GPIOA, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, HIGH);
+
+
+  // // LOOP_PHASEACQENABLE
+  // *((volatile uint8_t *)0x2000U) = 0;
+
+  // // LOOP_ALG_IC 
+  // *((volatile uint64_t *)0x2018U) = 200;
+
+  // // LOOP_ALG_EN
+  // *((volatile uint8_t *)0x2008U) = 1;
+
+  // // LOOP_DLF_KP 
+  // *((volatile uint32_t *)0x2024U) = 8;
+  // // LOOP_DLF_KI
+  // *((volatile uint32_t *)0x2028U) = 4;
+
+  
+  // // LOOP_PHASEACQENABLE
+  // *((volatile uint8_t *)0x2000U) = 1;
+
+
+
+  // uint8_t division = 2000;
+  // RCC->DEBUG_CLK_DIV = division;
+
+
+
+  // sprintf(str, ": setting DEBUG CLK to DCO...\n");
+  // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+  // RCC->DEBUG_CLK_SEL = 1;
+  // HAL_delay(100);
+
+  // sprintf(str, ": setting LOOP_DCOCTRL_CODE_OVERRIDE to 1...\n");
+  // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+  // *((volatile uint8_t *)0x2010U) = 1;
+  // HAL_delay(200);
+
+
+  // sprintf(str, ": setting LOOP_DCOCTRL_CODE_OVERRIDE to 0...\n");
+  // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+  // *((volatile uint8_t *)0x2010U) = 0;
+  // HAL_delay(200);
+  
+  // uint8_t data;
+  // while (1) {
+  //   sprintf(str, "DCO SEL: %d\tDCO DIV: %d\n", RCC->DEBUG_CLK_SEL, RCC->DEBUG_CLK_DIV);
+  //   HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+  //   HAL_delay(100);
+  // }
+
+
+
+  
+}
