@@ -1,0 +1,1485 @@
+<device xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="1.1" xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
+  <name>OsciArty</name>
+  <version>0.8</version>
+  <description>BearlyML on Arty</description>
+  <cpu>
+    <name>RISCV</name>
+    <revision>r1p1</revision>
+    <endian>little</endian>
+    <mpuPresent>false</mpuPresent>
+    <fpuPresent>false</fpuPresent>
+    <nvicPrioBits>4</nvicPrioBits>
+    <vendorSystickConfig>false</vendorSystickConfig>
+  </cpu>
+  <addressUnitBits>8</addressUnitBits>
+  <width>64</width>
+  <size>0x20</size>
+  <resetValue>0x0</resetValue>
+  <resetMask>0xFFFFFFFF</resetMask>
+  <peripherals>
+    <peripheral>
+      <name>PLL</name>
+      <description>Phase locked loop</description>
+      <groupName>PLL</groupName>
+      <baseAddress>0x00002000</baseAddress>
+      <addressBlock>
+        <offset>0x0</offset>
+        <size>0x400</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>LOOP_PHASEACQENABLE</name>
+          <description>loop_phaseAcqEnable</description>
+          <addressOffset>0x00</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>ENABLE</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>ENABLE</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>Enabled</name><description>Enabled</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Disabled</name><description>Disabled</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>LOOP_UPD_TS</name>
+          <description>loop_upd_ts</description>
+          <addressOffset>0x04</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>UPD_TS</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>2</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>LOOP_ALG_EN</name>
+          <description>loop_alg_en</description>
+          <addressOffset>0x08</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>EN</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>LOOP_DSM_EN</name>
+          <description>loop_dsm_en</description>
+          <addressOffset>0x0C</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>EN</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>LOOP_DCOCTRLCODEOVERRIDE</name>
+          <description>loop_dcoCtrlCodeOverride</description>
+          <addressOffset>0x10</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>OVERRIDE</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>LOOP_DLF_IC</name>
+          <description>loop_dlf_ic</description>
+          <addressOffset>0x14</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>DLF_IC</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>LOOP_ALG_IC</name>
+          <description>loop_alg_ic</description>
+          <addressOffset>0x18</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>ALG_IC</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>LOOP_ALG_GA</name>
+          <description>loop_alg_ga</description>
+          <addressOffset>0x1C</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>ALG_GA</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>4</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>LOOP_ALG_CF</name>
+          <description>loop_alg_cf</description>
+          <addressOffset>0x20</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>ALG_CF</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>4</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>LOOP_DLF_KP</name>
+          <description>loop_dlf_kp</description>
+          <addressOffset>0x24</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>DLF_KP</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>4</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>LOOP_DLF_KI</name>
+          <description>loop_dlf_ki</description>
+          <addressOffset>0x28</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>DLF_KI</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>4</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>BPD_PD</name>
+          <description>bpd_pd</description>
+          <addressOffset>0x2C</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>BPD_PD</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>DIV_SEL_CLK_DLF</name>
+          <description>div_sel_clk_dlf</description>
+          <addressOffset>0x30</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>DIV_SEL_CLK_DLF</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>2</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>DIV_SEL_CLK_DIV</name>
+          <description>div_sel_clk_div</description>
+          <addressOffset>0x34</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>DIV_SEL_CLK_DIV</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>2</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>DIV_PD</name>
+          <description>div_pd</description>
+          <addressOffset>0x38</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>DIV_PD</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>BOOT_SELECT</name>
+      <description>Boot Selection Pin</description>
+      <groupName>BOOT_SELECT</groupName>
+      <baseAddress>0x00004000</baseAddress>
+      <addressBlock>
+        <offset>0x0</offset>
+        <size>0x400</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>BOOT_SEL</name>
+          <description>boot select</description>
+          <addressOffset>0x00</addressOffset>
+          <size>0x20</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>VAL0</name>
+              <description>Input value of pin 0</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>EN0</name>
+                <usage>read-only</usage>
+                <enumeratedValue><name>Self Boot</name><description>Self-Boot Mode</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Tethered</name><description>Tethered Boot Mode</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>CLINT</name>
+      <description>Core-Local Interruptor</description>
+      <groupName>CLINT</groupName>
+      <baseAddress>0x02000000</baseAddress>
+      <addressBlock>
+        <offset>0x0</offset>
+        <size>0x400</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>MSIP0</name>
+          <description>hart 0 msip bit</description>
+          <addressOffset>0x00</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>MSIP0</name>
+              <description>hart 0 machine mode software interrupt in progress</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>EN0</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>Interrupt pending</name><description>Self-Boot Mode</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>No interrupt</name><description>Tethered Boot Mode</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>MSIP1</name>
+          <description>hart 1 msip bit</description>
+          <addressOffset>0x04</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>MSIP1</name>
+              <description>hart 1 machine mode software interrupt in progress</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>EN0</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>Interrupt pending</name><description>Self-Boot Mode</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>No interrupt</name><description>Tethered Boot Mode</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>MSIP2</name>
+          <description>hart 2 msip bit</description>
+          <addressOffset>0x08</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>MSIP2</name>
+              <description>hart 2 machine mode software interrupt in progress</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>EN0</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>Interrupt pending</name><description>Self-Boot Mode</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>No interrupt</name><description>Tethered Boot Mode</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>MSIP3</name>
+          <description>hart 3 msip bit</description>
+          <addressOffset>0x0C</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>MSIP3</name>
+              <description>hart 3 machine mode software interrupt in progress</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>EN0</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>Interrupt pending</name><description>Self-Boot Mode</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>No interrupt</name><description>Tethered Boot Mode</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>MSIP4</name>
+          <description>hart 4 msip bit</description>
+          <addressOffset>0x10</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>MSIP4</name>
+              <description>hart 4 machine mode software interrupt in progress</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>EN0</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>Interrupt pending</name><description>Self-Boot Mode</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>No interrupt</name><description>Tethered Boot Mode</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>MTIMECMP0</name>
+          <description>hart 0 mtimecmp value</description>
+          <addressOffset>0x4000</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>MTIMECMP0</name>
+              <description>hart 0 machine mode timer compare value</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>64</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>MTIMECMP1</name>
+          <description>hart 1 mtimecmp value</description>
+          <addressOffset>0x4008</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>MTIMECMP1</name>
+              <description>hart 1 machine mode timer compare value</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>64</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>MTIMECMP2</name>
+          <description>hart 2 mtimecmp value</description>
+          <addressOffset>0x4010</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>MTIMECMP2</name>
+              <description>hart 2 machine mode timer compare value</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>64</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>MTIMECMP3</name>
+          <description>hart 3 mtimecmp value</description>
+          <addressOffset>0x4018</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>MTIMECMP3</name>
+              <description>hart 3 machine mode timer compare value</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>64</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>MTIMECMP4</name>
+          <description>hart 4 mtimecmp value</description>
+          <addressOffset>0x4020</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>MTIMECMP4</name>
+              <description>hart 4 machine mode timer compare value</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>64</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>MTIME</name>
+          <description>mtime value</description>
+          <addressOffset>0xBFF8</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>MTIME</name>
+              <description>machine mode timer value</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>64</bitWidth>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>RCC</name>
+      <description>Reset and Clock Control</description>
+      <groupName>RCC</groupName>
+      <baseAddress>0x00100000</baseAddress>
+      <addressBlock>
+        <offset>0x0</offset>
+        <size>0x400</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>TILE0_RESET</name>
+          <description>RocketTile 0 reset control</description>
+          <addressOffset>0x00</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>TILE0_RESET</name>
+              <description>RocketTile 0 reset control</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TILE1_RESET</name>
+          <description>RocketTile 1 reset control</description>
+          <addressOffset>0x04</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>TILE1_RESET</name>
+              <description>RocketTile 1 reset control</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TILE2_RESET</name>
+          <description>RocketTile 2 reset control</description>
+          <addressOffset>0x08</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>TILE2_RESET</name>
+              <description>RocketTile 2 reset control</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TILE3_RESET</name>
+          <description>RocketTile 3 reset control</description>
+          <addressOffset>0x0C</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>TILE3_RESET</name>
+              <description>RocketTile 3 reset control</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TILE4_RESET</name>
+          <description>SaturnTile reset control</description>
+          <addressOffset>0x10</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>TILE4_RESET</name>
+              <description>SaturnTile reset control</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>CLK_SEL</name>
+          <description>Clock selection</description>
+          <addressOffset>0x2000</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>SEL</name>
+              <description>Selects the system clock</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>SEL</name>
+                <usage>read-only</usage>
+                <enumeratedValue><name>PLL Clock</name><description>Select PLL clock</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>External Clock</name><description>Select external clock</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>DEBUG_CLK_SEL</name>
+          <description>input value</description>
+          <addressOffset>0x2008</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>SEL</name>
+              <description>Selection</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>DEBUG_CLK_DIV</name>
+          <description>input value</description>
+          <addressOffset>0x200C</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <description>Clock divisor</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>12</bitWidth>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>GPIOA</name>
+      <description>General purpose I/O</description>
+      <groupName>GPIO</groupName>
+      <baseAddress>0x10012000</baseAddress>
+      <addressBlock>
+        <offset>0x0</offset>
+        <size>0x400</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>INPUT_VAL</name>
+          <description>input value</description>
+          <addressOffset>0x00</addressOffset>
+          <size>0x20</size>
+          <access>read-only</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>VAL0</name>
+              <description>Input value of pin 0</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+            <field>
+              <name>VAL1</name>
+              <description>Input value of pin 1</description>
+              <bitOffset>1</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+            <field>
+              <name>VAL2</name>
+              <description>Input value of pin 2</description>
+              <bitOffset>2</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>INPUT_EN</name>
+          <description>input enable</description>
+          <addressOffset>0x04</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>EN0</name>
+              <description>Input enable control of pin 0</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>EN0</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>Enabled</name><description>Enable input</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Disabled</name><description>Disable input</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>EN1</name>
+              <description>Input enable control of pin 1</description>
+              <bitOffset>1</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="EN0"/>
+            </field>
+            <field>
+              <name>EN2</name>
+              <description>Input enable control of pin 2</description>
+              <bitOffset>2</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="EN0"/>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>OUTPUT_EN</name>
+          <description>output enable</description>
+          <addressOffset>0x08</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>EN0</name>
+              <description>Output enable control of pin 0</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>EN0</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>Enabled</name><description>Enable output</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Disabled</name><description>Disable output</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>EN1</name>
+              <description>Output enable control of pin 1</description>
+              <bitOffset>1</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="EN0"/>
+            </field>
+            <field>
+              <name>EN2</name>
+              <description>Output enable control of pin 2</description>
+              <bitOffset>2</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="EN0"/>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>OUTPUT_VAL</name>
+          <description>output value</description>
+          <addressOffset>0x0C</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>VAL0</name>
+              <description>Output value of pin 0</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>VAL0</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>High</name><description>Set output to logic high</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Low</name><description>Set output to logic low</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>VAL1</name>
+              <description>Output value of pin 1</description>
+              <bitOffset>1</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="VAL0"/>
+            </field>
+            <field>
+              <name>VAL2</name>
+              <description>Output value of pin 2</description>
+              <bitOffset>2</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues derivedFrom="VAL0"/>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>UART0</name>
+      <description>Universal Asynchronous Receiver/Transmitter</description>
+      <groupName>UART</groupName>
+      <baseAddress>0x1001A000</baseAddress>
+      <addressBlock>
+        <offset>0x0</offset>
+        <size>0x400</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>TXDATA</name>
+          <description>transmit data register</description>
+          <addressOffset>0x00</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>DATA</name>
+              <description>Transmit data</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+            <field>
+              <name>FULL</name>
+              <description>Transmit FIFO full</description>
+              <bitOffset>31</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>FULL</name>
+                <usage>read-only</usage>
+                <enumeratedValue><name>Full</name><description>Transmit FIFO is full</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Not full</name><description>Transmit FIFO is not full</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>RXDATA</name>
+          <description>receive data register</description>
+          <addressOffset>0x04</addressOffset>
+          <size>0x20</size>
+          <access>read-only</access>
+          <resetValue>0x80000000</resetValue>
+          <fields>
+            <field>
+              <name>DATA</name>
+              <description>Received data</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+            <field>
+              <name>EMPTY</name>
+              <description>Receive FIFO empty</description>
+              <bitOffset>31</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>EMPTY</name>
+                <usage>read-only</usage>
+                <enumeratedValue><name>Empty</name><description>Receive FIFO is empty</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Not empty</name><description>Receive FIFO is not empty</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TXCTRL</name>
+          <description>transmit control register</description>
+          <addressOffset>0x08</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>TXEN</name>
+              <description>Transmit enable</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>TXEN</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>Enabled</name><description>Transmit enabled</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Disabled</name><description>Transmit disabled</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>NSTOP</name>
+              <description>Number of stop bits</description>
+              <bitOffset>1</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>NSTOP</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>2 stop bits</name><description>2 stop bits</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>1 stop bit</name><description>1 stop bit</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>TXCNT</name>
+              <description>Transmit watermark level</description>
+              <bitOffset>16</bitOffset>
+              <bitWidth>3</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>RXCTRL</name>
+          <description>receive control register</description>
+          <addressOffset>0x0C</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>RXEN</name>
+              <description>Receive enable</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>RXEN</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>Enabled</name><description>Receive enabled</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Disabled</name><description>Receive disabled</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>RXCNT</name>
+              <description>Receive watermark level</description>
+              <bitOffset>16</bitOffset>
+              <bitWidth>3</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>DIV</name>
+          <description>baudrate divisor</description>
+          <addressOffset>0x18</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x000000AD</resetValue>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <description>Baudrate divisor</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>16</bitWidth>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>QSPI0</name>
+      <description>Serial Peripheral Interface</description>
+      <groupName>QSPI</groupName>
+      <baseAddress>0x10020000</baseAddress>
+      <addressBlock>
+        <offset>0x0</offset>
+        <size>0x400</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>SCKDIV</name>
+          <description>serial clock divisor</description>
+          <addressOffset>0x00</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000003</resetValue>
+          <fields>
+            <field>
+              <name>DIV</name>
+              <description>Divisor for serial clock</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>12</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>SCKMODE</name>
+          <description>serial clock mode</description>
+          <addressOffset>0x04</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>PHA</name>
+              <description>Serial clock phase</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>PHA</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>Idle High</name><description>SCLK idle state is high</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Idle Low</name><description>SCLK idle state is low</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>POL</name>
+              <description>Serial clock polarity</description>
+              <bitOffset>1</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>POL</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>Sample on 2nd edge</name><description>Data is sampled at second edge of SCLK</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Sample on 1st edge</name><description>Data is sampled at first edge of SCLK</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>CSID</name>
+          <description>chip select ID</description>
+          <addressOffset>0x10</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>CSID</name>
+              <description>Chip select ID.</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>32</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>CSDEF</name>
+          <description>chip select default value</description>
+          <addressOffset>0x14</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>CSDEF</name>
+              <description>Chip select default value</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>32</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>CSMODE</name>
+          <description>chip select mode</description>
+          <addressOffset>0x18</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>MODE</name>
+              <description>Chip select mode</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>2</bitWidth>
+              <enumeratedValues>
+                <name>MODE</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>OFF</name><description>Disable hardware control of the CS pin</description><value>2</value></enumeratedValue>
+                <enumeratedValue><name>HOLD</name><description>Keep CS continuously asserted after the initial frame</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>AUTO</name><description>Assert/deassert CS at the beginning/end of each frame</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>DELAY0</name>
+          <description>delay control 0</description>
+          <addressOffset>0x28</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00010001</resetValue>
+          <fields>
+            <field>
+              <name>CSSCK</name>
+              <description>CS to SCK delay</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+            <field>
+              <name>SCKCS</name>
+              <description>SCK to CS delay</description>
+              <bitOffset>16</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>DELAY1</name>
+          <description>delay control 1</description>
+          <addressOffset>0x2C</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000001</resetValue>
+          <fields>
+            <field>
+              <name>INTERCS</name>
+              <description>Minimum CS inactive time</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+            <field>
+              <name>INTERXFR</name>
+              <description>Maximum interframe delay</description>
+              <bitOffset>16</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>FMT</name>
+          <description>frame format</description>
+          <addressOffset>0x40</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00080000</resetValue>
+          <fields>
+            <field>
+              <name>PROTO</name>
+              <description>SPI protocol</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>2</bitWidth>
+              <enumeratedValues>
+                <name>PROTO</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>Quad</name><description>QuadSPI mode, use DQ0, DQ1, DQ2, DQ3</description><value>2</value></enumeratedValue>
+                <enumeratedValue><name>Dual</name><description>DualSPI mode, use DQ0, DQ1</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Single</name><description>Single SPI mode, use DQ0 as MOSI, DQ1 as MISO</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>ENDIAN</name>
+              <description>SPI endianess</description>
+              <bitOffset>2</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>ENDIAN</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>LSB</name><description>least-significant bit first</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>MSB</name><description>most-significant bit first</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>DIR</name>
+              <description>SPI I/O direction</description>
+              <bitOffset>3</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>DIR</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>TX</name><description>The receive FIFO is not populated</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>RX</name><description>For dual and quad protocols, the DQ pins are tri-stated. For the single protocol, the DQ0 pin is driven with the transmit data as normal.</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>LEN</name>
+              <description>number of bits per frame</description>
+              <bitOffset>16</bitOffset>
+              <bitWidth>4</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>TXDATA</name>
+          <description>transmit data</description>
+          <addressOffset>0x48</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>DATA</name>
+              <description>Transmit data</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+            <field>
+              <name>FULL</name>
+              <description>Transmit FIFO full</description>
+              <bitOffset>31</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>FULL</name>
+                <usage>read-only</usage>
+                <enumeratedValue><name>Full</name><description>Transmit FIFO is full</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Not full</name><description>Transmit FIFO is not full</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>RXDATA</name>
+          <description>receive data register</description>
+          <addressOffset>0x4C</addressOffset>
+          <size>0x20</size>
+          <access>read-only</access>
+          <resetValue>0x80000000</resetValue>
+          <fields>
+            <field>
+              <name>DATA</name>
+              <description>Received data</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+            <field>
+              <name>EMPTY</name>
+              <description>Receive FIFO empty</description>
+              <bitOffset>31</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>EMPTY</name>
+                <usage>read-only</usage>
+                <enumeratedValue><name>Empty</name><description>Receive FIFO is empty</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Not empty</name><description>Receive FIFO is not empty</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>FCTRL</name>
+          <description>Flash interface control</description>
+          <addressOffset>0x60</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000001</resetValue>
+          <fields>
+            <field>
+              <name>EN</name>
+              <description>SPI Flash mode select</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>EN</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>Enabled</name><description>Flash mode enabled</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Disabled</name><description>Flash mode disabled</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>FFMT</name>
+          <description>Flash instruction format</description>
+          <addressOffset>0x60</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000004</resetValue>
+          <fields>
+            <field>
+              <name>EN</name>
+              <description>enable sending of command</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <enumeratedValues>
+                <name>EN</name>
+                <usage>read-write</usage>
+                <enumeratedValue><name>Enabled</name><description>command enabled</description><value>1</value></enumeratedValue>
+                <enumeratedValue><name>Disabled</name><description>command  disabled</description><value>0</value></enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>ADDR_LEN</name>
+              <description>Number of address bytes</description>
+              <bitOffset>1</bitOffset>
+              <bitWidth>3</bitWidth>
+            </field>
+            <field>
+              <name>PAD_CNT</name>
+              <description>Number of dummy cycles</description>
+              <bitOffset>4</bitOffset>
+              <bitWidth>4</bitWidth>
+            </field>
+            <field>
+              <name>CMD_PROTO</name>
+              <description>Protocol for transmitting command</description>
+              <bitOffset>8</bitOffset>
+              <bitWidth>2</bitWidth>
+            </field>
+            <field>
+              <name>ADDR_PROTO</name>
+              <description>Protocol for transmitting address and padding</description>
+              <bitOffset>10</bitOffset>
+              <bitWidth>2</bitWidth>
+            </field>
+            <field>
+              <name>DATA_PROTO</name>
+              <description>Protocol for receiving data</description>g
+              <bitOffset>12</bitOffset>
+              <bitWidth>2</bitWidth>
+            </field>
+            <field>
+              <name>CMD_CODE</name>
+              <description>Value of command byte</description>
+              <bitOffset>16</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+            <field>
+              <name>PAD_CODE</name>
+              <description>First 8 bits to transmit during dummy cycles</description>
+              <bitOffset>24</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>I2C0</name>
+      <description>Inter-Integrated Circuit</description>
+      <groupName>I2C</groupName>
+      <baseAddress>0x10024000</baseAddress>
+      <addressBlock>
+        <offset>0x0</offset>
+        <size>0x400</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>PRESCAL_LO</name>
+          <description></description>
+          <addressOffset>0x00</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x000000FF</resetValue>
+          <fields>
+            <field>
+              <name>PRESCAL_LO</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>PRESCAL_HI</name>
+          <description></description>
+          <addressOffset>0x04</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x000000FF</resetValue>
+          <fields>
+            <field>
+              <name>PRESCAL_HI</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>CTRL</name>
+          <description></description>
+          <addressOffset>0x08</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>IEN</name>
+              <description>interrupt enable</description>
+              <bitOffset>6</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+            <field>
+              <name>EN</name>
+              <description>enable</description>
+              <bitOffset>7</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>DATA</name>
+          <description></description>
+          <addressOffset>0x0C</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>DATA</name>
+              <description></description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>8</bitWidth>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>STAT</name>
+          <description></description>
+          <addressOffset>0x10</addressOffset>
+          <size>0x20</size>
+          <access>read-write</access>
+          <resetValue>0x00000000</resetValue>
+          <fields>
+            <field>
+              <name>IF</name>
+              <description>interrupt pending</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+            <field>
+              <name>TIP</name>
+              <description>transfer in progress</description>
+              <bitOffset>1</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+            <field>
+              <name>ACK</name>
+              <description>acknowledge bit enabled</description>
+              <bitOffset>3</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+            <field>
+              <name>WR</name>
+              <description>write to slave</description>
+              <bitOffset>4</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+            <field>
+              <name>RD</name>
+              <description>read from slave</description>
+              <bitOffset>5</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+            <field>
+              <name>BUSY/STO</name>
+              <description>busy / stop condition</description>
+              <bitOffset>6</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+            <field>
+              <name>RXACK/STA</name>
+              <description>acknowledge status / start condition</description>
+              <bitOffset>7</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral derivedFrom="I2C0">
+      <name>I2C1</name>
+      <baseAddress>0x10025000U</baseAddress>
+    </peripheral>
+  </peripherals>
+</device>
