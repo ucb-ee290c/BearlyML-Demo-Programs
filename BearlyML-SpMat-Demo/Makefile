@@ -158,5 +158,9 @@ hex: $(TARGET_HEX)
 
 verilog: $(TARGET_VERILOG)
 
-analyze: 
+analyze:
 	$(OD) -h build/firmware.elf
+
+# openocd currently only supports 32 bit target, thus we need to use binary loader
+upload: $(TARGET_BIN)
+	@openocd -f ./debug/bearlyml.cfg -c "program $(TARGET_BIN) 0x20000000 reset exit"

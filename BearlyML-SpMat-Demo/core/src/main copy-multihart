@@ -1,0 +1,167 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  * @attention
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include <stdio.h>
+#include <string.h>
+
+/* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+#define STR1(x) #x
+#ifndef STR
+#define STR(x) STR1(x)
+#endif
+
+#define CAT_(A, B) A##B
+#define CAT(A, B) CAT_(A, B)
+
+#define ROCC_INSTRUCTION_R_R_R(x, rd, rs1, rs2, func7)                               \
+  {                                                                                  \
+    asm volatile(                                                                    \
+        ".insn r " STR(CAT(CUSTOM_, x)) ", " STR(0x7) ", " STR(func7) ", %0, %1, %2" \
+        : "=r"(rd)                                                                   \
+        : "r"(rs1), "r"(rs2));                                                       \
+  }
+
+
+#define ROCC_INSTRUCTION_0_R_R(x, rs1, rs2, func7)                                   \
+  {                                                                                  \
+    asm volatile(                                                                    \
+        ".insn r " STR(CAT(CUSTOM_, x)) ", " STR(0x3) ", " STR(func7) ", x0, %0, %1" \
+        :                                                                            \
+        : "r"(rs1), "r"(rs2));                                                       \
+  }
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+
+/* USER CODE BEGIN PV */
+uint32_t mp_signal;
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+
+/* USER CODE BEGIN PFP */
+
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+  
+	/* USER CODE END 1 */
+
+  /* MCU Configuration--------------------------------------------------------*/
+  
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  HAL_RCC_InitSystemClock();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  UART_InitTypeDef UART_init_config;
+  UART_init_config.baudrate = 115200;
+  UART_init_config.mode = UART_MODE_TX_RX;
+  UART_init_config.stopbits = UART_STOPBITS_1;
+  HAL_UART_init(UART0, &UART_init_config);
+
+  /* USER CODE BEGIN 2 */
+  
+  uint32_t counter = 0;
+
+  if (READ_CSR(mhartid) == 0) {
+    char str[64];
+    sprintf(str, "hart %d: wake up!\n", READ_CSR(mhartid));  // should be "0: hello world"
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    RCC->TILE1_RESET = 0;
+    RCC->TILE2_RESET = 0;
+    RCC->TILE3_RESET = 0;
+    RCC->TILE4_RESET = 0;
+  }
+
+  uint8_t killed = 0;
+  uint64_t t_start = HAL_getTick();
+  
+  HAL_delay(READ_CSR(mhartid) * 100);
+	/* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  while (1) {
+    char str[128];
+    // HAL_delay(READ_CSR(mhartid) * 100);
+    sprintf(str, "hart %d: counter val: %d.\n", READ_CSR(mhartid), counter);  // should be "0: hello world"
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+
+    counter += 1;
+    HAL_delay(2000);
+
+    if (READ_CSR(mhartid) == 0 && HAL_getTick()-t_start > 20000*MTIME_FREQ && killed == 0) {
+      sprintf(str, "hart %d: kill others.\n", READ_CSR(mhartid));  // should be "0: hello world"
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+      RCC->TILE1_RESET = 1;
+      RCC->TILE2_RESET = 1;
+      RCC->TILE3_RESET = 1;
+      RCC->TILE4_RESET = 1;
+      killed = 1;
+    }
+    if (READ_CSR(mhartid) == 0 && HAL_getTick()-t_start > 40000*MTIME_FREQ && killed == 1) {
+      sprintf(str, "hart %d: revive others.\n", READ_CSR(mhartid));  // should be "0: hello world"
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+      RCC->TILE1_RESET = 0;
+      RCC->TILE2_RESET = 0;
+      RCC->TILE3_RESET = 0;
+      RCC->TILE4_RESET = 0;
+      killed = 2;
+    }
+		/* USER CODE END WHILE */
+	}
+	
+	/* USER CODE BEGIN 3 */
+
+	/* USER CODE END 3 */
+}
