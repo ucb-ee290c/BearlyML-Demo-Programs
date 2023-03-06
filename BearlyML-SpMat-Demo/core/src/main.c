@@ -206,7 +206,7 @@ int main(void)
       sprintf(str, "================================\n");
       HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
 
-      sprintf(str, "running matmul with 1 rocket core...\n");
+      sprintf(str, ">>> running matmul with 1 rocket core...\n");
       HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
 
       tick = HAL_getTick();
@@ -225,7 +225,7 @@ int main(void)
 
 
 
-      sprintf(str, "running matmul with 1 spmat accelerator...\n");
+      sprintf(str, "\n>>> running matmul with 1 spmat accelerator...\n");
       HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
 
       tick = HAL_getTick();
@@ -244,7 +244,7 @@ int main(void)
 
 
       
-      sprintf(str, "running matmul with 4 rocket cores...\n");
+      sprintf(str, "\n>>> running matmul with 4 rocket cores...\n");
       HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
 
       mp_signal = 1;
