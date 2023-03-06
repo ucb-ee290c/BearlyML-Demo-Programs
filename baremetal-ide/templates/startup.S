@@ -209,6 +209,18 @@ bss_init_exit:
   la sp, _sp
   la tp, _sp
 
+  /* Increment by hartid number of stack sizes */
+    csrr a0, mhartid
+    li t0, 0
+    la t1, __stack_size
+  stack_init_loop:
+    andi sp, sp, -16
+    beq t0, a0, stack_init_exit
+    add sp, sp, t1
+    addi t0, t0, 1
+    j stack_init_loop
+  stack_init_exit:
+  
   call system_init
   call main
 

@@ -101,7 +101,7 @@ SECTIONS {
   PROVIDE(_heap_end = ADDR(.heap) + SIZEOF(.heap));
   
   .stack (NOLOAD) : ALIGN(16) {
-    . += __stack_size; /* Hart 0 */
+    . += __stack_size * 5; /* Hart 0 */
     PROVIDE(_sp = .);
   }> SRAM
 
