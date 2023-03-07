@@ -1,9 +1,11 @@
 import os
 import shutil
 import re
+import xml
 import json
 
 import jinja2
+import xmljson
 
 
 class ProjectBuilder:
@@ -270,8 +272,38 @@ C_SOURCES += $(BSP_DIR)$(CHIP)/src/$(CHIP)_hal_uart.c
             "chipname.cfg"
             )
         
+        json_data = {
+            "name": {"$t": self.chipname_capitalized},
+            "version": {"$t": self.IDE_BUILDER_VERSION},
+            "description": {"$t": "description_text"},
+            "cpu": {
+                "name": {"$t": "Rocket"},
+                "revision": {"$t": "1.0"},
+                "endian": {"$t": "little"},
+                "mpuPresent": {"$t": "false"},
+                "fpuPresent": {"$t": "false"},
+                "nvicPrioBits": {"$t": 1},
+                "vendorSystickConfig": {"$t": True},
+            },
+            "addressUnitBits": {"$t": 8},
+            "width": {"$t": 64},
+            "size": {"$t": 0x20},
+            "resetValue": {"$t": 0x0},
+            "resetMask": {"$t": 0xFFFFFFFF},
+            "peripherals": {},
+        }
+        
+        xml_data = xmljson.gdata.etree(json_data, root=xml.etree.ElementTree.Element("device", attrib={
+            "xmlns:xs": "http://www.w3.org/2001/XMLSchema-instance",
+            "schemaVersion": "1.1",
+            "xs:noNamespaceSchemaLocation": "CMSIS-SVD_Schema_1_1.xsd"
+        }))
+
+        xml_data = xml.etree.ElementTree.tostring(xml_data, encoding="unicode")
+        # print(xml_data)
+
         with open(jtag_svd_path, "w") as f:
-            f.write("")
+            f.write(xml_data)
         
         
         vscode_folder_path = os.path.join(self.PROJECT_ROOT, ".vscode")
