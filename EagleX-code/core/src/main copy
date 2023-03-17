@@ -1,0 +1,229 @@
+
+#include "main.h"
+
+#include <stdint.h>
+#include <math.h>
+
+float input_buffer[1][1] = {0.2};
+
+float layer0_weights_buffer[1][8] = {-0.6556870341300964, -0.6550300121307373,
+                                     0.43170949816703796, 0.3845399022102356,
+                                     0.2732088565826416,  0.004129635635763407,
+                                     0.9314261078834534,  -0.38232922554016113};
+float layer0_biases_buffer[1][8] = {0.0,
+                                    0.0,
+                                    0.5059972405433655,
+                                    -0.23595651984214783,
+                                    0.19352295994758606,
+                                    0.2850624620914459,
+                                    -0.08980248123407364,
+                                    0.0};
+float layer0_output_buffer[1][8];
+
+float layer1_weights_buffer[8][8] = {
+    -0.20835551619529724,  -0.48927363753318787, -0.4419465661048889,
+    0.3800697326660156,    0.16788172721862793,  -0.39527806639671326,
+    -0.5746963024139404,   -0.24672338366508484, -0.06057316064834595,
+    0.3699788451194763,    -0.12949058413505554, 0.18659347295761108,
+    -0.3413068950176239,   0.5533561110496521,   0.5316486954689026,
+    -0.5156317949295044,   0.1549144685268402,   0.5581933259963989,
+    0.5942638516426086,    -0.37854883074760437, 0.6285549402236938,
+    -0.5226808786392212,   0.030920030549168587, -0.1922975778579712,
+    0.4402754604816437,    -0.07980557531118393, -0.16600584983825684,
+    0.1655820608139038,    -0.37521517276763916, 0.4872632622718811,
+    0.004766460973769426,  -0.35555893182754517, 0.42559415102005005,
+    0.2246510088443756,    0.6203397512435913,   -0.3345537781715393,
+    0.34336355328559875,   -0.01953303813934326, 0.4279094338417053,
+    0.17604827880859375,   -0.44142383337020874, -0.2605389952659607,
+    -0.4382393956184387,   -0.46853071451187134, 0.3377605378627777,
+    0.24589836597442627,   -0.5513521432876587,  0.1530023217201233,
+    0.3163953423500061,    -0.7708839178085327,  0.4039435386657715,
+    0.021420836448669434,  -0.5315138697624207,  -0.3684273362159729,
+    0.04140250384807587,   -0.5952722430229187,  -0.01964503526687622,
+    -0.028656184673309326, -0.3737962245941162,  0.014772534370422363,
+    -0.5098825693130493,   0.029573380947113037, 0.28551483154296875,
+    0.21171408891677856};
+float layer1_biases_buffer[1][8] = {0.11484110355377197, 0.2682410478591919,
+                                    0.144995778799057,   0.0,
+                                    0.48843637108802795, 0.0,
+                                    -0.7656452655792236, 0.0};
+float layer1_output_buffer[1][8];
+
+float layer2_weights_buffer[8][8] = {
+    0.25632962584495544,  0.31371864676475525,  0.43539515137672424,
+    0.15078437328338623,  -0.21344438195228577, -0.22473935782909393,
+    0.4155280292034149,   -0.20342594385147095, 0.3361266553401947,
+    -0.3273487687110901,  0.47509339451789856,  0.08581030368804932,
+    0.2165372371673584,   0.17025750875473022,  1.0436772108078003,
+    0.39676740765571594,  0.12443313747644424,  -0.02887985296547413,
+    0.6786856651306152,   -0.3169020712375641,  -0.5275334715843201,
+    0.3362880051136017,   -0.20564702153205872, -0.37915995717048645,
+    -0.08872932195663452, 0.1821858286857605,   -0.20051583647727966,
+    0.07467234134674072,  0.4001924395561218,   -0.4078350067138672,
+    -0.24630466103553772, 0.26846790313720703,  -1.1857166290283203,
+    -0.4899810254573822,  0.7680124044418335,   -0.402942955493927,
+    -0.36042046546936035, -1.143870234489441,   -0.15071861445903778,
+    0.35984355211257935,  -0.6041524410247803,  -0.25274255871772766,
+    -0.286567360162735,   0.40852540731430054,  0.39228659868240356,
+    0.5635175108909607,   0.2916800379753113,   0.3702743649482727,
+    -1.6411902904510498,  -1.6884211301803589,  0.8865317702293396,
+    0.3241053819656372,   -0.1002998948097229,  -0.999391496181488,
+    -1.2653284072875977,  -0.15513509511947632, -0.6092893481254578,
+    -0.41950416564941406, -0.5230265855789185,  0.3289721608161926,
+    -0.3784148097038269,  -0.10022234916687012, 0.054676353931427,
+    0.28289175033569336};
+float layer2_biases_buffer[1][8] = {0.15273649990558624,
+                                    0.10063948482275009,
+                                    0.08855481445789337,
+                                    -0.012450991198420525,
+                                    0.0,
+                                    0.12119598686695099,
+                                    0.03723170980811119,
+                                    0.12200354784727097};
+float layer2_output_buffer[1][8];
+
+float layer3_weights_buffer[8][1] = {-0.9689022898674011,  -0.580592930316925,
+                                     0.4365527033805847,   -0.32038819789886475,
+                                     -0.03519517183303833, -0.7979540824890137,
+                                     -0.722976565361023,   -0.7018635272979736};
+float layer3_biases_buffer[1][1] = {0.08723144978284836};
+float layer3_output_buffer[1][1];
+
+typedef struct {
+  size_t m;
+  size_t n;
+  float *data;
+} Matrix;
+
+void np_array(Matrix *mat, size_t m, size_t n, float *data) {
+  mat->m = m;
+  mat->n = n;
+  mat->data = data;
+}
+
+void np_print(Matrix *mat) {
+  char str[64];
+  for (size_t i = 0; i < mat->m; i += 1) {
+    for (size_t j = 0; j < mat->n; j += 1) {
+      sprintf(str, "%f\t", mat->data[i * mat->n + j]);
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+    }
+    sprintf(str, "\n");
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+  }
+}
+
+void np_matmul(Matrix *out, Matrix *a, Matrix *b) {
+  for (size_t i = 0; i < a->m; i += 1) {    // row
+    for (size_t j = 0; j < b->n; j += 1) {  // column
+      out->data[i * out->m + j] = 0;
+      for (size_t k = 0; k < b->m; k += 1) {
+        out->data[i * out->n + j] +=
+            a->data[i * a->n + k] * b->data[k * b->n + j];
+      }
+    }
+  }
+}
+
+void np_add(Matrix *mat, Matrix *b) {
+  for (size_t i = 0; i < mat->m; i += 1) {
+    for (size_t j = 0; j < b->n; j += 1) {
+      mat->data[i * mat->n + j] += b->data[i * b->n + j];
+    }
+  }
+}
+
+void np_relu(Matrix *mat) {
+  for (size_t i = 0; i < mat->m; i += 1) {
+    for (size_t j = 0; j < mat->n; j += 1) {
+      if (mat->data[i * mat->n + j] < 0) {
+        mat->data[i * mat->n + j] = 0;
+      }
+    }
+  }
+}
+
+int main() {
+  UART_InitTypeDef UART_init_config;
+  UART_init_config.baudrate = 115200;
+  UART_init_config.mode = UART_MODE_TX_RX;
+  UART_init_config.stopbits = UART_STOPBITS_1;
+  HAL_UART_init(UART0, &UART_init_config);
+
+  GPIO_InitTypeDef GPIO_init_config;
+  GPIO_init_config.mode = GPIO_MODE_OUTPUT;
+  GPIO_init_config.pull = GPIO_PULL_NONE;
+  GPIO_init_config.drive_strength = GPIO_DS_WEAK;
+  HAL_GPIO_init(GPIOA, &GPIO_init_config, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3);
+
+  char str[64];
+
+  sprintf(str, "start\n");
+  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+
+  Matrix input;
+  np_array(&input, 1, 1, (float *)input_buffer);
+
+  Matrix layer0_weights;
+  np_array(&layer0_weights, 1, 8, (float *)layer0_weights_buffer);
+  Matrix layer0_biases;
+  np_array(&layer0_biases, 1, 8, (float *)layer0_biases_buffer);
+  Matrix layer0_output;
+  np_array(&layer0_output, 1, 8, (float *)layer0_output_buffer);
+
+  Matrix layer1_weights;
+  np_array(&layer1_weights, 8, 8, (float *)layer1_weights_buffer);
+  Matrix layer1_biases;
+  np_array(&layer1_biases, 1, 8, (float *)layer1_biases_buffer);
+  Matrix layer1_output;
+  np_array(&layer1_output, 1, 8, (float *)layer1_output_buffer);
+
+  Matrix layer2_weights;
+  np_array(&layer2_weights, 8, 8, (float *)layer2_weights_buffer);
+  Matrix layer2_biases;
+  np_array(&layer2_biases, 1, 8, (float *)layer2_biases_buffer);
+  Matrix layer2_output;
+  np_array(&layer2_output, 1, 8, (float *)layer2_output_buffer);
+
+  Matrix layer3_weights;
+  np_array(&layer3_weights, 8, 1, (float *)layer3_weights_buffer);
+  Matrix layer3_biases;
+  np_array(&layer3_biases, 1, 1, (float *)layer3_biases_buffer);
+  Matrix layer3_output;
+  np_array(&layer3_output, 1, 1, (float *)layer3_output_buffer);
+
+
+  input.data[0] = 0.f;
+
+  while (1) {
+    np_matmul(&layer0_output, &input, &layer0_weights);
+    np_add(&layer0_output, &layer0_biases);
+    np_relu(&layer0_output);
+
+    np_matmul(&layer1_output, &layer0_output, &layer1_weights);
+    np_add(&layer1_output, &layer1_biases);
+    np_relu(&layer1_output);
+
+    np_matmul(&layer2_output, &layer1_output, &layer2_weights);
+    np_add(&layer2_output, &layer2_biases);
+    np_relu(&layer2_output);
+
+    np_matmul(&layer3_output, &layer2_output, &layer3_weights);
+
+    np_add(&layer3_output, &layer3_biases);
+
+    // np_print(&layer0_output);
+    // np_print(&layer1_output);
+    // np_print(&layer2_output);
+    // np_print(&layer3_output);
+
+    sprintf(str, "input: %d\t prediction: %d\t actual: %d\n", 
+          (int)(1000*input.data[0]), 
+          (int)(1000*layer3_output.data[0]), 
+          (int)(1000*sinf(input.data[0]))
+        );
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+
+    input.data[0] += 0.1f;
+  }
+}

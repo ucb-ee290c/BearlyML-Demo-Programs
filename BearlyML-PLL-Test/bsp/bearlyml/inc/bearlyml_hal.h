@@ -26,8 +26,9 @@ extern "C" {
 #include "BearlyML_hal_uart.h"
 
 
-#define SYS_CLK_FREQ  100000000                    // Hz
-#define MTIME_FREQ    (SYS_CLK_FREQ / 100000)    // tick per milliseconds
+#define HXTAL_FREQ    100000000                    // Hz
+#define SYS_CLK_FREQ  HXTAL_FREQ / 2                    // Hz
+#define MTIME_FREQ    (SYS_CLK_FREQ / 200000)    // tick per milliseconds
 
 void HAL_init();
 

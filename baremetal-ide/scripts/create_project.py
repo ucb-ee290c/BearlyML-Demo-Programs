@@ -109,13 +109,18 @@ C_SOURCES += $(BSP_DIR)$(CHIP)/src/$(CHIP)_hal_uart.c
             os.path.join(self.PROJECT_ROOT, "bsp", self.chipname, "inc", "xcustom.h"), 
             "peripherals/xcustom.h"
             )
+
         self.generateFromTemplate(
             os.path.join(self.PROJECT_ROOT, "bsp", self.chipname, "inc", "encoding.h"), 
             "peripherals/encoding.h"
             )
+
+
         self.generateFromTemplate(
             os.path.join(self.PROJECT_ROOT, "bsp", self.chipname, "inc", self.chipname+".h"), 
-            "chipname.h"
+            "chipname.h",
+            irq_definition="",
+            peripherals=self.chip_config.get("peripherals"),
             )
         self.generateFromTemplate(
             os.path.join(self.PROJECT_ROOT, "bsp", self.chipname, "inc", self.chipname+"_hal.h"), 
@@ -277,21 +282,46 @@ C_SOURCES += $(BSP_DIR)$(CHIP)/src/$(CHIP)_hal_uart.c
             "version": {"$t": self.IDE_BUILDER_VERSION},
             "description": {"$t": "description_text"},
             "cpu": {
-                "name": {"$t": "Rocket"},
-                "revision": {"$t": "1.0"},
+                "name": {"$t": self.chip_config.get("harts")[0].get("name")},
+                "revision": {"$t": self.chip_config.get("harts")[0].get("arch")},
                 "endian": {"$t": "little"},
                 "mpuPresent": {"$t": "false"},
-                "fpuPresent": {"$t": "false"},
+                "fpuPresent": {"$t": self.chip_config.get("harts")[0].get("arch").find("f") != -1},
                 "nvicPrioBits": {"$t": 1},
                 "vendorSystickConfig": {"$t": True},
             },
+            # Define the number of data bits uniquely selected by each address. 
             "addressUnitBits": {"$t": 8},
-            "width": {"$t": 64},
-            "size": {"$t": 0x20},
-            "resetValue": {"$t": 0x0},
-            "resetMask": {"$t": 0xFFFFFFFF},
-            "peripherals": {},
+            # Define the number of data bit-width of the maximum single data transfer supported by the bus infrastructure.
+            "width": {"$t": re.findall("\d+", self.chip_config.get("harts")[0].get("arch"))[0]},
+            # Default bit-width of any register contained in the device.
+            "size": {"$t": 32},
+            # Default access rights for all registers.
+            "access": {"$t": "read-write"},
+            # Default access protection for all registers.
+            #"protection": {"$t": "read-write"},
+            # Default value for all registers at RESET.
+            "resetValue": {"$t": "0x00000000"},
+            # Define which register bits have a defined reset value.
+            "resetMask": {"$t": "0xFFFFFFFF"},
+
+            "peripherals": {
+                "peripheral": [{
+                    "name": {"$t": periph.get("name")},
+                    "description": {"$t": periph.get("description")},
+                    "groupName": {"$t": periph.get("group")},
+                    "baseAddress": {"$t": periph.get("baseAddress")},
+                    "addressBlock": {
+                        "offset": {"$t": periph.get("addressBlock").get("offset")},
+                        "size": {"$t": periph.get("addressBlock").get("size")},
+                        "usage": {"$t": periph.get("addressBlock").get("usage")},
+                    },
+                    "registers": {}
+                } for periph in self.chip_config.get("peripherals")]
+            },
         }
+
+
         
         xml_data = xmljson.gdata.etree(json_data, root=xml.etree.ElementTree.Element("device", attrib={
             "xmlns:xs": "http://www.w3.org/2001/XMLSchema-instance",

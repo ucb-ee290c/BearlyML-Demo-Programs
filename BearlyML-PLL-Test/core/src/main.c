@@ -70,6 +70,7 @@ int main(void)
   /* USER CODE END Init */
 
   /* Configure the system clock */
+
   HAL_RCC_InitSystemClock();
 
   /* USER CODE BEGIN SysInit */
@@ -77,11 +78,11 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  UART_InitTypeDef UART_init_config;
-  UART_init_config.baudrate = 115200;
-  UART_init_config.mode = UART_MODE_TX_RX;
-  UART_init_config.stopbits = UART_STOPBITS_1;
-  HAL_UART_init(UART0, &UART_init_config);
+  // UART_InitTypeDef UART_init_config;
+  // UART_init_config.baudrate = 115200;
+  // UART_init_config.mode = UART_MODE_TX_RX;
+  // UART_init_config.stopbits = UART_STOPBITS_1;
+  // HAL_UART_init(UART0, &UART_init_config);
 
   /* USER CODE BEGIN 2 */
 
@@ -97,7 +98,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1) {
     char str[128];
-    HAL_GPIO_writePin(GPIOA, GPIO_PIN_1, 0);
+    // HAL_GPIO_writePin(GPIOA, GPIO_PIN_1, 0);
 
     // LOOP_PHASEACQENABLE
     RCC->DEBUG_CLK_SEL = 1;
@@ -114,8 +115,10 @@ int main(void)
 
     PLL->DIV_SEL_CLK_DIV = 0b11;
 
-    HAL_GPIO_writePin(GPIOA, GPIO_PIN_1, 1);
-    HAL_delay(2000);
+    PLL->LOOP_DLF_KP = 2;
+
+    // HAL_GPIO_writePin(GPIOA, GPIO_PIN_1, 1);
+    HAL_delay(100);
     PLL->LOOP_DCOCTRLCODEOVERRIDE = 0b0;
 
     uint8_t data;

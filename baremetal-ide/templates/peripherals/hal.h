@@ -25,9 +25,9 @@ extern "C" {
 #include "{{ chipname }}_hal_rcc.h"
 #include "{{ chipname }}_hal_uart.h"
 
-
-#define SYS_CLK_FREQ  {{ sys_clk_freq }}                    // Hz
-#define MTIME_FREQ    (SYS_CLK_FREQ / 100000)    // tick per milliseconds
+#define HXTAL_FREQ    {{ sys_clk_freq }}                   // Hz
+#define SYS_CLK_FREQ  HXTAL_FREQ / 2              // Hz
+#define MTIME_FREQ    (SYS_CLK_FREQ / 200000)     // tick per milliseconds
 
 void HAL_init();
 

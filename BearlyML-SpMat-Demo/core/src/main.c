@@ -251,7 +251,7 @@ int main(void)
     }
 
 
-    while (mp_signal == 0) {}
+    while (mp_signal != 1) {}
 
     {
       uint64_t tick;
@@ -261,7 +261,6 @@ int main(void)
         matmul(result, A, dense_B_rows, dense_B, dense_B_cols);
       }
       time_taken = HAL_getTick() - tick;
-
       
       {
         char str[64];
@@ -273,16 +272,50 @@ int main(void)
 
     
       if (READ_CSR(mhartid) == 0) {
-        mp_signal = 0;
-        
         char str[128];
         sprintf(str, "time taken: %u, \tresult: \n", time_taken);
         HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
         printVector(result, dense_B_cols);
+        
+        HAL_delay(1000);
+
+        sprintf(str, "\n>>> running matmul with 4 spmat accelerator...\n");
+        HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+        mp_signal = 2;
       }
       
-      HAL_delay(1000);
     }
+
+    while (mp_signal != 2) {}
+    {
+      uint64_t tick;
+      uint64_t time_taken;
+      tick = HAL_getTick();
+      for (size_t i=0; i<250; i+=1) {
+        SPMAT_matmul(result, sparse_A, n_sparse_elems, dense_B, n_dense_mats);
+      }
+      time_taken = HAL_getTick() - tick;
+      
+      {
+        char str[64];
+        HAL_delay(READ_CSR(mhartid)*100);
+        sprintf(str, "hart %d: done.\n", READ_CSR(mhartid));
+        HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+        HAL_delay((4-READ_CSR(mhartid))*100);
+      }
+
+      if (READ_CSR(mhartid) == 0) {
+        char str[128];
+        sprintf(str, "time taken: %u, \tresult: \n", time_taken);
+        HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+        printVector(result, dense_B_cols);
+        
+        HAL_delay(1000);
+        mp_signal = 0;
+      }
+    }
+    
+    while (mp_signal != 0) {}
 
     HAL_delay(1000);
 		/* USER CODE END WHILE */

@@ -8,6 +8,8 @@ extern "C" {
 
 #include "rv_core.h"
 
+{{ irq_definition }}
+
 /* IRQ Definition */
 typedef enum {
   UserSoftware_IRQn         = 0,
@@ -247,7 +249,8 @@ typedef struct {
 } I2C_TypeDef;
 
 
-/* Memory Map Definition */
+/* Memory Map Definition */{% for periph in peripherals %}
+#define {{ periph.get("name") | upper }}_BASE   {{ periph.get("baseAddress") }}{% endfor %}
 #define DEBUG_CONTROLLER_BASE   0x00000000U
 #define PLL_BASE                0x00002000U
 #define ERROR_DEVICE_BASE       0x00003000U
@@ -275,6 +278,8 @@ typedef struct {
 #define I2C0_BASE               (I2C_BASE)
 #define I2C1_BASE               (I2C_BASE + 0x1000U)
 
+{% for periph in peripherals %}
+#define {{ periph.get("name") | upper }}       (({{ periph.get("name") | upper }}_TypeDef *){{ periph.get("name") | upper }}_BASE){% endfor %}
 #define RCC                     ((RCC_TypeDef *)RCC_BASE)
 #define PLL                     ((PLL_TypeDef *)PLL_BASE)
 #define CLINT                   ((CLINT_TypeDef *)CLINT_BASE)
