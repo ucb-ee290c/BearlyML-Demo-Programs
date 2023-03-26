@@ -125,7 +125,7 @@ C_SOURCES += $(BSP_DIR)$(CHIP)/src/$(CHIP)_hal_uart.c
         self.generateFromTemplate(
             os.path.join(self.PROJECT_ROOT, "bsp", self.chipname, "inc", self.chipname+"_hal.h"), 
             "peripherals/hal.h", 
-            chipname=self.chip_config.get("name"),
+            chipname=self.chipname,
             sys_clk_freq=self.chip_config.get("harts")[0].get("freq"),
             )
             
