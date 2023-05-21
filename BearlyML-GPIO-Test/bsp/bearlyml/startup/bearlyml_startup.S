@@ -221,6 +221,10 @@ bss_init_exit:
     j stack_init_loop
   stack_init_exit:
   
+  # la a0, __libc_fini_array
+  # call atexit
+  # call __libc_init_array
+
   call system_init
   call main
 

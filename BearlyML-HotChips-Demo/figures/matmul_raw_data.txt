@@ -1,0 +1,226 @@
+MNIST Data Check:
+3: 
+  
+                            
+                            
+        ##@@##--            
+        ++--++@@--          
+              ##--          
+            ####            
+        --@@##              
+        ++@@++              
+          ++@@@@            
+            --@@++          
+      ######@@@@--          
+      ++@@@@++              
+                            
+                          
+8: 
+  
+                            
+                            
+        --++++++            
+      --@@++++++##--        
+      ##--      @@--        
+      ++##    ##--          
+        ####++++            
+          ##@@--            
+          ####@@            
+          ##  ++##          
+        --++    @@          
+        --@@++####          
+          ++++++            
+                          
+6: 
+  
+                            
+            ++++            
+          ++@@--            
+        --@@--              
+        ##++                
+      --@@                  
+      ++++      --          
+      ##--    @@@@@@        
+      @@    --@@++@@        
+      ##----++@@##--        
+      ++@@@@##--            
+                            
+                            
+                          
+9: 
+  
+                            
+                            
+                            
+        --++--              
+      --@@##@@##            
+      ##      @@##          
+    --##      ++@@          
+      @@++  --##--          
+      --##@@@@@@--          
+              @@--          
+              ##--          
+              ##--          
+              ##++          
+              ----        
+6: 
+  
+                            
+          --++++            
+        ++@@######          
+      --@@--    --          
+      @@++                  
+      @@                    
+      @@    --++++          
+      @@--####++++@@        
+      @@@@##      ##        
+      --@@++      @@        
+        --@@@@##@@++        
+            --++++          
+                            
+                          
+3: 
+  
+                            
+                            
+      --@@##++--            
+        --++++##            
+          --##++            
+        @@@@@@              
+      --##++++##            
+              ++++          
+                ##          
+      ##        ##          
+      @@##++++++@@          
+        ++@@@@##--          
+                            
+                          
+8: 
+  
+                            
+                            
+            ++--            
+        ++@@##++##          
+        ++##    ++--        
+        --@@    ##          
+          @@  ++++          
+          ++@@++            
+          ++@@--            
+          ##++++            
+        --++--##            
+        --####++            
+          --++              
+                          
+2: 
+  
+                            
+        --##                
+        ++@@@@              
+        @@--####            
+              @@            
+              @@--          
+              ##--          
+        ++##--##--          
+      ####++@@@@##          
+      @@----####@@##        
+      ++@@@@++    ++##      
+                            
+                            
+                          
+
+Running in CPU float Mode:
+Running in CPU int Mode:
+mtime: 403810   cycle: 40381012 instret: 435296
+Running in SpAccel Mode:
+mtime: 125049   cycle: 12504931 instret: 160876
+Checking predictions...
+label=3; pred=3
+label=8; pred=8
+label=6; pred=6
+label=9; pred=9
+label=6; pred=6
+label=3; pred=3
+label=8; pred=8
+label=2; pred=2
+Correct count: 8
+Test passed!
+Running in CPU float Mode:
+Running in CPU int Mode:
+mtime: 402574   cycle: 40257391 instret: 435296
+Running in SpAccel Mode:
+mtime: 125049   cycle: 12504893 instret: 160876
+Checking predictions...
+label=3; pred=3
+label=8; pred=8
+label=6; pred=6
+label=9; pred=9
+label=6; pred=6
+label=3; pred=3
+label=8; pred=8
+label=2; pred=2
+Correct count: 8
+Test passed!
+Running in CPU float Mode:
+Running in CPU int Mode:
+mtime: 402575   cycle: 40257546 instret: 435296
+Running in SpAccel Mode:
+mtime: 125049   cycle: 12504872 instret: 160876
+Checking predictions...
+label=3; pred=3
+label=8; pred=8
+label=6; pred=6
+label=9; pred=9
+label=6; pred=6
+label=3; pred=3
+label=8; pred=8
+label=2; pred=2
+Correct count: 8
+Test passed!
+Running in CPU float Mode:
+Running in CPU int Mode:
+mtime: 402574   cycle: 40257477 instret: 435296
+Running in SpAccel Mode:
+mtime: 125049   cycle: 12504921 instret: 160876
+Checking predictions...
+label=3; pred=3
+label=8; pred=8
+label=6; pred=6
+label=9; pred=9
+label=6; pred=6
+label=3; pred=3
+label=8; pred=8
+label=2; pred=2
+Correct count: 8
+Test passed!
+Running in CPU float Mode:
+Running in CPU int Mode:
+mtime: 402574   cycle: 40257447 instret: 435296
+Running in SpAccel Mode:
+mtime: 125048   cycle: 12504867 instret: 160876
+Checking predictions...
+label=3; pred=3
+label=8; pred=8
+label=6; pred=6
+label=9; pred=9
+label=6; pred=6
+label=3; pred=3
+label=8; pred=8
+label=2; pred=2
+Correct count: 8
+Test passed!
+Running in CPU float Mode:
+Running in CPU int Mode:
+mtime: 402574   cycle: 40257460 instret: 435296
+Running in SpAccel Mode:
+mtime: 125049   cycle: 12504914 instret: 160876
+Checking predictions...
+label=3; pred=3
+label=8; pred=8
+label=6; pred=6
+label=9; pred=9
+label=6; pred=6
+label=3; pred=3
+label=8; pred=8
+label=2; pred=2
+Correct count: 8
+Test passed!

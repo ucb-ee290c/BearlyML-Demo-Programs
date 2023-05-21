@@ -33,46 +33,11 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 
-#define STR1(x) #x
-#ifndef STR
-#define STR(x) STR1(x)
-#endif
-
-#define CAT_(A, B) A##B
-#define CAT(A, B) CAT_(A, B)
-
-#define ROCC_INSTRUCTION_R_R_R(x, rd, rs1, rs2, func7)                   \
-  {                                                                      \
-    asm volatile(".insn r " STR(CAT(CUSTOM_, x)) ", " STR(0x7) ", " STR( \
-                     func7) ", %0, %1, %2"                               \
-                 : "=r"(rd)                                              \
-                 : "r"(rs1), "r"(rs2));                                  \
-  }
-
-#define ROCC_INSTRUCTION_0_R_R(x, rs1, rs2, func7)                       \
-  {                                                                      \
-    asm volatile(".insn r " STR(CAT(CUSTOM_, x)) ", " STR(0x3) ", " STR( \
-                     func7) ", x0, %0, %1"                               \
-                 :                                                       \
-                 : "r"(rs1), "r"(rs2));                                  \
-  }
-
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
-/* USER CODE END PV */
-
-/* Private function prototypes -----------------------------------------------*/
-
-/* USER CODE BEGIN PFP */
-
-/* USER CODE END PFP */
-
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
 
 const uint8_t L1_w_p_ptr[32] __attribute__((aligned(8))) = {
     56, 56, 44, 60, 20, 60, 60, 24, 72, 60, 56, 60, 52, 48, 40, 48,
@@ -518,9 +483,42 @@ uint8_t h1_buf_neg[2 * 32 * 8] __attribute__((aligned(8)));
 uint8_t out_buf_pos[2 * 10 * 8] __attribute__((aligned(8)));
 uint8_t out_buf_neg[2 * 10 * 8] __attribute__((aligned(8)));
 
-// Various monkey printing functions because printf is crippled...
+/* USER CODE END PV */
 
-void print_array(uint8_t *arr, size_t size) {
+/* Private function prototypes -----------------------------------------------*/
+
+/* USER CODE BEGIN PFP */
+
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+
+/*  https://stackoverflow.com/questions/70382318/ex-without-math-h?noredirect=1&lq=1
+    e^x
+    Actually for inference we don't care about relative probability, just the
+max. double fabs1(double x) { if(x >= 0){ return x; } else { return x*(-1);
+    }
+}
+
+double powerex(double x) {
+    double a = 1.0, e = 0;
+    int invert = x<0;
+    x = fabs1(x);
+    for (int n = 1; e != e + a ; ++n) {
+        e += a;
+        a = a * x / n;
+    }
+    return invert ? 1/e : e;
+}
+*/
+
+uint8_t round_float(float n) {
+  return (uint8_t)((n > 0) ? (n + 0.5) : (n - 0.5));
+}
+
+
+void printArray(uint8_t *arr, size_t size) {
   char str[64];
   size_t i = 0;
   while (i < size) {
@@ -554,7 +552,7 @@ uint8_t print_compare_array(uint8_t *a, uint8_t *b, size_t size) {
   return incorrect;
 }
 
-void print_mnist() {
+void printMNISTDataset() {
   char str[64];
   for (size_t i = 0; i < batch_size; i++) {
     sprintf(str, "%d: \n", y[i]);
@@ -582,10 +580,107 @@ void print_mnist() {
   HAL_UART_transmit(UART0, (uint8_t *)"\n", 1, 100);
 }
 
+
+Status SPMAT_matmul(uint8_t *output, 
+                    const uint8_t *w_ptr, const uint8_t *w_arr,
+                    const uint8_t *x_arr, 
+                    size_t w_ptr_size, size_t batch_size) {
+  size_t dense_matrix_size = batch_size / dense_matrix_stride;
+
+  uint8_t *internal_w_arr = (uint8_t *)w_arr;
+  uint32_t casted_w_ptr;
+  uint8_t *output_ptr = output;
+
+  for (size_t i=0; i<w_ptr_size; i+=1) {
+    /* EXPLICITLY MASK THE REGISTER SO THAT IT ONLY HAS INT8 ELEMENTS MAX
+        DO NOT USE (int)w_ptr[i] IT READS THE REST OF THE ELEMENTS IN PACKED
+       ARRAY AND SENDS ALL 64 BITS OVER, IT WILL OVERFLOW QUICKLY
+    */
+    casted_w_ptr = (uint8_t)w_ptr[i];
+
+    asm volatile("fence");
+    ROCC_INSTRUCTION_0_R_R(0, internal_w_arr, casted_w_ptr, 0);
+    ROCC_INSTRUCTION_0_R_R(0, x_arr, dense_matrix_size, 1);
+    ROCC_INSTRUCTION_0_R_R(0, output_ptr, output_ptr, 2);
+    asm volatile("fence");
+
+    internal_w_arr = internal_w_arr + (w_ptr[i] * 2);
+    output_ptr = output_ptr + batch_size;
+  }
+  asm volatile("fence");
+
+  return OK;
+}
+
+
+Status CPU_matmul(uint8_t *output, 
+                    const uint8_t *w_ptr, const uint8_t *w_arr,
+                    const uint8_t *x_arr, 
+                    size_t w_ptr_size, size_t batch_size) {
+  size_t dense_matrix_size = batch_size / dense_matrix_stride;
+
+  uint8_t *internal_w_arr = (uint8_t *)w_arr;
+  uint32_t casted_w_ptr;
+  uint8_t *output_ptr = output;
+
+  for (size_t i=0; i<w_ptr_size; i+=1) {
+    /* EXPLICITLY MASK THE REGISTER SO THAT IT ONLY HAS INT8 ELEMENTS MAX
+        DO NOT USE (int)w_ptr[i] IT READS THE REST OF THE ELEMENTS IN PACKED
+       ARRAY AND SENDS ALL 64 BITS OVER, IT WILL OVERFLOW QUICKLY
+    */
+    casted_w_ptr = (uint8_t)w_ptr[i];
+
+    for (int k = 0; k < batch_size; k++) {
+      unsigned char result = 0;
+      for (int j = 0; j < w_ptr[i]; j++) {
+        result += internal_w_arr[j*2] * (*(x_arr + internal_w_arr[1 + j*2] * batch_size + k));
+      }
+      *(output + i*batch_size + k) = result;
+    }
+
+    internal_w_arr = internal_w_arr + (w_ptr[i] * 2);
+    output_ptr = output_ptr + batch_size;
+  }
+  return OK;
+}
+
+Status CPU_requantize(uint8_t *pos, uint8_t *neg, const float *bias,
+                  size_t size, const float pre_scale, const float post_scale,
+                  size_t activate) {
+  char str[128];
+
+  for (size_t j = 0; j < 8; j++) {
+    float max = 1.175494351e-38;
+    uint8_t max_idx = 0;
+    for (size_t i = 0; i < size; i++) {
+      float curr = ((float)(((int32_t)((uint8_t)*(pos + i * 8 + j))) -
+                            ((int32_t)((uint8_t)*(neg + i * 8 + j)))));
+      curr = (curr * pre_scale) + bias[i];
+      if (activate == 1 && curr < 0.0) curr = 0.0;
+      if (activate == 1 && curr > 6.0) curr = 6.0;
+      // +0.5 so it rounds properly, c by default just truncates
+      if (activate == 0) {
+        *(pos + i * 8 + j) = 0;
+        if (max < curr) {
+          max = curr;
+          max_idx = (uint8_t)i;
+        }
+      }
+      else {
+        *(pos + i * 8 + j) = round_float(curr / post_scale);
+      }
+    }
+    if (activate == 0) {
+      *(pos + j) = max_idx;
+    }
+  }
+  return OK;
+}
+
 // [10x8]=[10x32][32x196][196x8]
 uint8_t uint_matmul(const uint8_t *w_ptr, const uint8_t *w_arr,
-                const uint8_t *x_arr, uint8_t *output,
-                size_t w_ptr_size, size_t batch_size) {
+                    const uint8_t *x_arr, uint8_t *output,
+                    size_t w_ptr_size, size_t batch_size) {
   // Assume batch size of 8
   size_t dense_matrix_size = batch_size / dense_matrix_stride;
   /*
@@ -602,15 +697,6 @@ uint8_t uint_matmul(const uint8_t *w_ptr, const uint8_t *w_arr,
   uint8_t *output_ptr = output;
 
   for (size_t i=0; i<w_ptr_size; i+=1) {
-    /*
-    printf("int i = ");
-    print_int(i);
-    printf("; i < ");
-    print_int(w_ptr_size);
-    printf("; w_ptr[i] = ");
-    print_int((int)(w_ptr[i]));
-    printf("\n");
-    */
     /* EXPLICITLY MASK THE REGISTER SO THAT IT ONLY HAS INT8 ELEMENTS MAX
         DO NOT USE (int)w_ptr[i] IT READS THE REST OF THE ELEMENTS IN PACKED
        ARRAY AND SENDS ALL 64 BITS OVER, IT WILL OVERFLOW QUICKLY
@@ -659,10 +745,10 @@ uint8_t uint_matmul(const uint8_t *w_ptr, const uint8_t *w_arr,
   */
 
   char str[64];
-  sprintf(str, "Accelerator result:\n");
-  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+  // sprintf(str, "Accelerator result:\n");
+  // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
   asm volatile("fence");
-  print_array(output, w_ptr_size * batch_size);
+  // print_array(output, w_ptr_size * batch_size);
   /*
   printf("CPU result:\n");
   print_array(output + w_ptr_size*batch_size, w_ptr_size*batch_size);
@@ -672,29 +758,6 @@ uint8_t uint_matmul(const uint8_t *w_ptr, const uint8_t *w_arr,
   */
 
   return 0;
-}
-
-/*  https://stackoverflow.com/questions/70382318/ex-without-math-h?noredirect=1&lq=1
-    e^x
-    Actually for inference we don't care about relative probability, just the
-max. double fabs1(double x) { if(x >= 0){ return x; } else { return x*(-1);
-    }
-}
-
-double powerex(double x) {
-    double a = 1.0, e = 0;
-    int invert = x<0;
-    x = fabs1(x);
-    for (int n = 1; e != e + a ; ++n) {
-        e += a;
-        a = a * x / n;
-    }
-    return invert ? 1/e : e;
-}
-*/
-
-uint8_t round_float(float n) {
-  return (uint8_t)((n > 0) ? (n + 0.5) : (n - 0.5));
 }
 
 /*
@@ -718,8 +781,8 @@ void float_covfefe(uint8_t *pos, uint8_t *neg, const float *bias,
       if (activate == 1 && curr > 6.0) curr = 6.0;
       // +0.5 so it rounds properly, c by default just truncates
       if (activate == 0) {
-        sprintf(str, "%f, ", curr);
-        HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+        // sprintf(str, "%f, ", curr);
+        // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
 
         *(pos + i * 8 + j) = 0;
         if (max < curr) {
@@ -737,44 +800,12 @@ void float_covfefe(uint8_t *pos, uint8_t *neg, const float *bias,
       // printf("\n");
       //*(pos+j) = y[j];
       *(pos + j) = max_idx;
-      sprintf(str, "max_idx = %d\n", max_idx);
-      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+      // sprintf(str, "max_idx = %d\n", max_idx);
+      // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
     }
   }
 }
 
-/* List of const variables
-uint8_t L1_w_p_ptr[196]
-uint8_t L1_w_n_ptr[196]
-uint8_t L1_w_p_arr[2928]
-uint8_t L1_w_n_arr[2424]
-uint8_t L2_w_p_ptr[32]
-uint8_t L2_w_n_ptr[32]
-uint8_t L2_w_p_arr[320]
-uint8_t L2_w_n_arr[312]
-float L1_b[32]
-float L2_b[10]
-uint8_t L1_x_size
-uint8_t L2_x_size
-uint8_t out_size
-uint8_t batch_size
-float L1_s_x
-float L1_s_w
-float L2_s_x
-float L2_s_w
-uint8_t x[1960]
-uint8_t y[8]
-
-Normal variables
-uint8_t h1_buf_pos[2][32][8] __attribute__ ((aligned (64)));
-uint8_t h1_buf_neg[2][32][8] __attribute__ ((aligned (64)));
-uint8_t out_buf_pos[2][10][8] __attribute__ ((aligned (64)));
-uint8_t out_buf_neg[2][10][8] __attribute__ ((aligned (64)));
-
-
-int uint_matmul(const uint8_t* w_ptr, const uint8_t* w_arr, const
-uint8_t* x_arr, uint8_t* output, int w_ptr_size, int batch_size)
-*/
 /* USER CODE END 0 */
 
 /**
@@ -783,20 +814,13 @@ uint8_t* x_arr, uint8_t* output, int w_ptr_size, int batch_size)
  */
 int main(void) {
   /* USER CODE BEGIN 1 */
-
   /* USER CODE END 1 */
-
   /* MCU Configuration--------------------------------------------------------*/
-
   /* USER CODE BEGIN Init */
-
   /* USER CODE END Init */
-
   /* Configure the system clock */
   HAL_RCC_InitSystemClock();
-
   /* USER CODE BEGIN SysInit */
-
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -807,59 +831,126 @@ int main(void) {
   HAL_UART_init(UART0, &UART_init_config);
 
   /* USER CODE BEGIN 2 */
+  char str[128];
 
+  sprintf(str, "MNIST Data Check:\n");
+  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+
+  // volatile float a = 0.2;
+  // volatile float b = a * 0.01;
+
+  printMNISTDataset();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
   while (1) {
-    char str[128];
+    {
+      sprintf(str, "Running in CPU float Mode:\n");
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
 
-    sprintf(str, "MNIST Data Check:\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+      HAL_delay(1000); 
+    }
+    {
+      sprintf(str, "Running in CPU int Mode:\n");
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+      
+      uint64_t mtime_start;
+      uint64_t cycle_start;
+      uint64_t time_start;
+      uint64_t instret_start;
+      mtime_start = CLINT->MTIME;
+      asm volatile("rdcycle %0" : "=r"(cycle_start));
+      // asm volatile("rdtime %0" : "=r"(time_start));
+      asm volatile("rdinstret %0" : "=r"(instret_start));
 
-    print_mnist();
-    uint64_t begin_time = CLINT->MTIME;
+      // L1 Matmul Positive
+      CPU_matmul(h1_buf_pos, L1_w_p_ptr, L1_w_p_arr, x, L2_x_size, batch_size);
 
-    sprintf(str, "L1 Matmul Positive...\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+      // L1 Matmul Negative
+      CPU_matmul(h1_buf_neg, L1_w_n_ptr, L1_w_n_arr, x, L2_x_size, batch_size);
 
-    uint_matmul(L1_w_p_ptr, L1_w_p_arr, x, h1_buf_pos, L2_x_size, batch_size);
+      // rescale and requantize
+      CPU_requantize(h1_buf_pos, h1_buf_neg, L1_b, L2_x_size, L1_s_x * L1_s_w, L2_s_x, 1);
 
-    sprintf(str, "L1 Matmul Negative...\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+      // L2 Matmul Positive
+      CPU_matmul(out_buf_pos, L2_w_p_ptr, L2_w_p_arr, h1_buf_pos, out_size, batch_size);
 
-    uint_matmul(L1_w_n_ptr, L1_w_n_arr, x, h1_buf_neg, L2_x_size, batch_size);
+      // L2 Matmul Negaitve
+      CPU_matmul(out_buf_neg, L2_w_n_ptr, L2_w_n_arr, h1_buf_pos, out_size, batch_size);
 
-    sprintf(str, "rescaling and requantizing...\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+      // rescale and finding max
+      CPU_requantize(out_buf_pos, out_buf_neg, L2_b, out_size, L2_s_x * L2_s_w, 0.0, 0);
+    
+      uint64_t mtime_end;
+      uint64_t cycle_end;
+      uint64_t time_end;
+      uint64_t instret_end;
+      mtime_end = CLINT->MTIME;
+      asm volatile("rdcycle %0" : "=r"(cycle_end));
+      // asm volatile("rdtime %0" : "=r"(time_end));
+      asm volatile("rdinstret %0" : "=r"(instret_end));
 
-    float_covfefe(h1_buf_pos, h1_buf_neg, L1_b, L2_x_size, L1_s_x * L1_s_w, L2_s_x, 1);
+      sprintf(str, "mtime: %lu\tcycle: %lu\tinstret: %lu\n", 
+        mtime_end - mtime_start, 
+        cycle_end - cycle_start, 
+        // time_end - time_start,
+        instret_end - instret_start);
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+      
+      HAL_delay(1000); 
+    }
+    {
+      sprintf(str, "Running in SpAccel Mode:\n");
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+      
+      uint64_t mtime_start;
+      uint64_t cycle_start;
+      uint64_t time_start;
+      uint64_t instret_start;
+      mtime_start = CLINT->MTIME;
+      asm volatile("rdcycle %0" : "=r"(cycle_start));
+      // asm volatile("rdtime %0" : "=r"(time_start));
+      asm volatile("rdinstret %0" : "=r"(instret_start));
 
-    sprintf(str, "Array:\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+      // L1 Matmul Positive
+      SPMAT_matmul(h1_buf_pos, L1_w_p_ptr, L1_w_p_arr, x, L2_x_size, batch_size);
 
-    print_array(h1_buf_pos, (uint32_t)L2_x_size * (uint32_t)batch_size);
+      // L1 Matmul Negative
+      SPMAT_matmul(h1_buf_neg, L1_w_n_ptr, L1_w_n_arr, x, L2_x_size, batch_size);
 
-    sprintf(str, "L2 Matmul Positive...\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+      // rescale and requantize
+      CPU_requantize(h1_buf_pos, h1_buf_neg, L1_b, L2_x_size, L1_s_x * L1_s_w, L2_s_x, 1);
 
-    uint_matmul(L2_w_p_ptr, L2_w_p_arr, h1_buf_pos, out_buf_pos, out_size, batch_size);
+      // L2 Matmul Positive
+      SPMAT_matmul(out_buf_pos, L2_w_p_ptr, L2_w_p_arr, h1_buf_pos, out_size, batch_size);
 
-    sprintf(str, "L2 Matmul Negaitve...\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+      // L2 Matmul Negaitve
+      SPMAT_matmul(out_buf_neg, L2_w_n_ptr, L2_w_n_arr, h1_buf_pos, out_size, batch_size);
 
-    uint_matmul(L2_w_n_ptr, L2_w_n_arr, h1_buf_pos, out_buf_neg, out_size, batch_size);
+      // rescale and finding max
+      CPU_requantize(out_buf_pos, out_buf_neg, L2_b, out_size, L2_s_x * L2_s_w, 0.0, 0);
+    
+      uint64_t mtime_end;
+      uint64_t cycle_end;
+      uint64_t time_end;
+      uint64_t instret_end;
+      mtime_end = CLINT->MTIME;
+      asm volatile("rdcycle %0" : "=r"(cycle_end));
+      // asm volatile("rdtime %0" : "=r"(time_end));
+      asm volatile("rdinstret %0" : "=r"(instret_end));
 
-    sprintf(str, "rescaling and finding max...\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+      sprintf(str, "mtime: %lu\tcycle: %lu\tinstret: %lu\n", 
+        mtime_end - mtime_start, 
+        cycle_end - cycle_start, 
+        // time_end - time_start,
+        instret_end - instret_start);
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
+    
+      HAL_delay(1000);
+    }
 
-    float_covfefe(out_buf_pos, out_buf_neg, L2_b, out_size, L2_s_x * L2_s_w, 0.0, 0);
-    uint64_t cycles_taken = CLINT->MTIME - begin_time;
-
-    sprintf(str, "Cycles taken = %lu\n", cycles_taken);
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
 
     int32_t correct_count = 0;
 
@@ -870,9 +961,6 @@ int main(void) {
       sprintf(str, "label=%d; pred=%d\n", y[i], *(out_buf_pos + i));
       HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
 
-      // printf("; pointer=");
-      // print_pointer(out_buf_pos + i);
-
       correct_count += (y[i] == *(out_buf_pos + i)) ? 1 : 0;
     }
 
@@ -882,12 +970,10 @@ int main(void) {
     if (correct_count == 8) {
       sprintf(str, "Test passed!\n");
       HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
-      // return 0;
     }
     else {
       sprintf(str, "Test failed!\n");
       HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
-      // return 1;
     }
 
     HAL_delay(1000);
@@ -898,15 +984,3 @@ int main(void) {
 
   /* USER CODE END 3 */
 }
-
-// int _write(int handle, char *data, int size) {
-//   int count;
-//   char str[128];
-//   sprintf(str, "hello\n");
-//   HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 1000);
-//   handle = handle;  // unused
-//   // for( count = 0; count < size; count++) {
-//   //     // outputByte( data[count] ) ;  // Your low-level output function here.
-//   // }
-//   return size;
-// }

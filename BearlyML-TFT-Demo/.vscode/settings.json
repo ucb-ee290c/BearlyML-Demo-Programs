@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "main.h": "c",
+    "bearlyml_hal.h": "c",
+    "bearlyml_hal_spi.h": "c"
+  }
+}

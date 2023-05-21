@@ -10,6 +10,9 @@
 
 #include "bearlyml_hal.h"
 
+#include <errno.h>
+#include <stdint.h>
+
 __attribute__((weak)) void HAL_MachineSoftwareInterruptCallback(uint32_t hart_id) {
 //   { // debug message
 //     char str[32];
@@ -56,7 +59,7 @@ void Breakpoint_Exception_Handler() {
 //     }
   // }
 }
-void LoadAddressMisaligne_Exception_handler() {
+void LoadAddressMisalign_Exception_handler() {
 //   while (1) {
 //     { // debug message
 //       char str[64];
@@ -186,7 +189,7 @@ void trap_handler(void) {
       Breakpoint_Exception_Handler();
       break;
     case 0x00000004:      // load address misaligned
-      LoadAddressMisaligne_Exception_handler();
+      LoadAddressMisalign_Exception_handler();
       break;
     case 0x00000005:      // load access fault
       LoadAccessFault_Exception_handler();
@@ -221,3 +224,94 @@ void trap_handler(void) {
       // }
   }
 }
+
+
+extern uint8_t __heap_start;
+extern uint8_t __heap_end;
+static uint8_t *__brk = &__heap_start;
+
+#ifdef _PICOLIBC__
+#define _brk brk
+#define _sbrk sbrk
+#endif
+
+int _brk(void *addr) {
+  __brk = addr;
+  return 0;
+}
+
+void *_sbrk(ptrdiff_t incr) {
+  uint8_t *old = __brk;
+
+  /* If __heap_size == 0, we can't allocate memory on the heap */
+  if (&__heap_start == &__heap_end) {
+    return (void *)-1;
+  }
+
+  /* Don't move the break past the end of the heap */
+  if ((__brk + incr) < &__heap_end) {
+    __brk += incr;
+  } else {
+    __brk = &__heap_end;
+    return (void *)-1;
+  }
+  /* Scrub out allocated memory to avoid spurious ECC errors */
+  // metal_mem_scrub(old, incr);
+
+  return old;
+}
+
+
+
+// /**
+//  * Pointer to the current high watermark of the heap usage
+//  */
+// static uint8_t *__sbrk_heap_end = NULL;
+
+// /**
+//  * @brief _sbrk() allocates memory to the newlib heap and is used by malloc
+//  *        and others from the C library
+//  *
+//  * @verbatim
+//  * ############################################################################
+//  * #  .data  #  .bss  #       newlib heap       #          MSP stack          #
+//  * #         #        #                         # Reserved by _Min_Stack_Size #
+//  * ############################################################################
+//  * ^-- RAM start      ^-- _end                             _estack, RAM end --^
+//  * @endverbatim
+//  *
+//  * This implementation starts allocating at the '_end' linker symbol
+//  * The '_Min_Stack_Size' linker symbol reserves a memory for the MSP stack
+//  * The implementation considers '_estack' linker symbol to be RAM end
+//  * NOTE: If the MSP stack, at any point during execution, grows larger than the
+//  * reserved size, please increase the '_Min_Stack_Size'.
+//  *
+//  * @param incr Memory size
+//  * @return Pointer to allocated memory
+//  */
+// void *_sbrk(ptrdiff_t incr) {
+//   extern uint8_t __end; /* Symbol defined in the linker script */
+//   extern uint8_t _stack_end; /* Symbol defined in the linker script */
+//   extern uint32_t __stack_size; /* Symbol defined in the linker script */
+//   const uint32_t stack_limit = (uint32_t)&_stack_end - (uint32_t)&__stack_size;
+//   const uint8_t *max_heap = (uint8_t *)stack_limit;
+//   uint8_t *prev_heap_end;
+
+//   /* Initialize heap end at first call */
+//   if (NULL == __sbrk_heap_end)
+//   {
+//     __sbrk_heap_end = &__end;
+//   }
+
+//   /* Protect heap from growing into the reserved MSP stack */
+//   if (__sbrk_heap_end + incr > max_heap)
+//   {
+//     errno = ENOMEM;
+//     return (void *)-1;
+//   }
+
+//   prev_heap_end = __sbrk_heap_end;
+//   __sbrk_heap_end += incr;
+
+//   return (void *)prev_heap_end;
+// }

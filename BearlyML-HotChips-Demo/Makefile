@@ -89,8 +89,11 @@ TARGET_VERILOG = $(BUILD_DIR)$(TARGET).out
 #################################
 
 # MCU Settings
+# ARCH = rv64imadc
+# ABI = lp64d
 ARCH = rv64imac
 ABI = lp64
+
 CODEMODEL = medany
 LD_SCRIPT = $(BSP_DIR)$(CHIP)/$(CHIP).ld
 
@@ -158,6 +161,9 @@ bin: $(TARGET_BIN)
 hex: $(TARGET_HEX)
 
 verilog: $(TARGET_VERILOG)
+
+dump:
+	$(OD) -d $(TARGET_ELF) > $(TARGET).S
 
 # openocd currently only supports 32 bit target, thus we need to use binary loader
 upload: $(TARGET_BIN)

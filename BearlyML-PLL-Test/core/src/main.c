@@ -98,24 +98,31 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1) {
     char str[128];
-    // HAL_GPIO_writePin(GPIOA, GPIO_PIN_1, 0);
+    
+    /* set up debug clock */
 
-    // LOOP_PHASEACQENABLE
+    // Select source of debug clock pad. 0: Off-chip clock, 1: PLL clock
     RCC->DEBUG_CLK_SEL = 1;
 
-    // debug_clock = sys_clk / (div+1)
-    RCC->DEBUG_CLK_DIV = 99;
-    
-
+    // debug_clock = sys_clk / (div+1), width = 12b its
+    RCC->DEBUG_CLK_DIV = 19;
     HAL_delay(100);
+    
+    /* set up PLL parameters */
+    PLL->LOOP_ALG_EN = 0;
+
     PLL->LOOP_DCOCTRLCODEOVERRIDE = 0b1;
 
     HAL_delay(100);
     PLL->DIV_SEL_CLK_DLF = 0b11;
 
-    PLL->DIV_SEL_CLK_DIV = 0b11;
+    PLL->DIV_SEL_CLK_DIV = 0b01;
 
-    PLL->LOOP_DLF_KP = 2;
+    PLL->LOOP_DLF_IC = 0x4F;
+    PLL->LOOP_ALG_IC = 200;
+
+    PLL->LOOP_DLF_KP = 0x0A;
+    PLL->LOOP_DLF_KI = 0x05;
 
     // HAL_GPIO_writePin(GPIOA, GPIO_PIN_1, 1);
     HAL_delay(100);
@@ -124,11 +131,15 @@ int main(void)
     uint8_t data;
     uint8_t counter = 0;
 
+    HAL_delay(1000);
+
+    RCC->CLK_SEL = 0b0;
+
     while (1) {
-      HAL_GPIO_writePin(GPIOA, GPIO_PIN_1, counter % 2);
+      HAL_GPIO_writePin(GPIOA, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3, counter % 2);
       
       counter += 1;
-      HAL_delay(1000);
+      HAL_delay(500);
     }
 		/* USER CODE END WHILE */
 	}

@@ -16,6 +16,7 @@
 extern "C" {
 #endif
 
+#include "encoding.h"
 #include "BearlyML.h"
 #include "BearlyML_hal_core.h"
 #include "BearlyML_hal_clint.h"

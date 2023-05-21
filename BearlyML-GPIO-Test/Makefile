@@ -98,7 +98,7 @@ ARCHFLAGS = -march=$(ARCH) -mabi=$(ABI) -mcmodel=$(CODEMODEL) -fno-pie
 SPECFLAGS = --specs="nano.specs"
 
 # compiler Flags
-CFLAGS  = -g -std=gnu11 -Os -Wall -Wextra -Warray-bounds -Wno-unused-parameter
+CFLAGS  = -g -std=gnu11 -O0 -Wall -Wextra -Warray-bounds -Wno-unused-parameter
 CFLAGS += -fno-common -fno-builtin-printf
 CFLAGS += $(ARCHFLAGS)
 CFLAGS += $(SPECFLAGS)
@@ -157,6 +157,9 @@ bin: $(TARGET_BIN)
 hex: $(TARGET_HEX)
 
 verilog: $(TARGET_VERILOG)
+
+dump:
+	$(OD) -d $(TARGET_ELF) > $(TARGET).S
 
 # openocd currently only supports 32 bit target, thus we need to use binary loader
 upload: $(TARGET_BIN)

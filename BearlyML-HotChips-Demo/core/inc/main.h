@@ -31,6 +31,8 @@ extern "C" {
 #include <stdio.h>
 #include <string.h>
 #include <inttypes.h>
+
+#include "xcustom.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

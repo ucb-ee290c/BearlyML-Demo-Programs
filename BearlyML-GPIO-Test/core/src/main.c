@@ -72,6 +72,14 @@ int main(void)
   /* Configure the system clock */
   HAL_RCC_InitSystemClock();
 
+  // RCC->FBUS_CLK_DIV = 9;
+  // RCC->TILE0_CLK_DIV = 9;
+  // RCC->TILE1_CLK_DIV = 9;
+  // RCC->TILE2_CLK_DIV = 9;
+  // RCC->TILE3_CLK_DIV = 9;
+  // RCC->TILE4_CLK_DIV = 9;
+  // RCC->UNCORE_CLK_DIV = 9;
+
   /* USER CODE BEGIN SysInit */
 
   /* USER CODE END SysInit */
@@ -90,32 +98,28 @@ int main(void)
   GPIO_init_config.pull = GPIO_PULL_NONE;
   GPIO_init_config.drive_strength = GPIO_DS_STRONG;
   HAL_GPIO_init(GPIOA, &GPIO_init_config, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3);
-  
-  GPIO_init_config.mode = GPIO_MODE_OUTPUT;
-  GPIO_init_config.pull = GPIO_PULL_NONE;
-  GPIO_init_config.drive_strength = GPIO_DS_WEAK;
-  HAL_GPIO_init(GPIOA, &GPIO_init_config, GPIO_PIN_2);
 
   HAL_GPIO_writePin(GPIOA, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3, 0);
 
   char str[128];
+
+
+  // uint8_t *c = malloc(4);
 	/* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
 	while (1) {
-    // sprintf(str, "LOW\n");
-
-    // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 1000);
+    
 		HAL_GPIO_writePin(GPIOA, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3, 0);
-    HAL_delay(1);
-
-    // printf("loop\n");
-    // sprintf(str, "HIGH\n");
-    // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 1000);
+    HAL_delay(100);
+    
 		HAL_GPIO_writePin(GPIOA, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3, 1);
-    HAL_delay(1);
+    HAL_delay(100);
+
+    sprintf(str, "loop\n");
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 1000);
 		/* USER CODE END WHILE */
 	}
 	
@@ -124,14 +128,13 @@ int main(void)
 	/* USER CODE END 3 */
 }
 
-int _write(int handle, char *data, int size )  {
-    int count ;
-    char str[128];
-    sprintf(str, "hello\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 1000);
-    handle = handle ; // unused
-    // for( count = 0; count < size; count++) {
-    //     // outputByte( data[count] ) ;  // Your low-level output function here.
-    // }
-    return size;
-}
+// __attribute__((weak)) int _write(int file, char *ptr, int len) {
+//   int count ;
+//   char str[128];
+//   sprintf(str, "hello\n");
+//   HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 1000);
+//   // for( count = 0; count < size; count++) {
+//   //     // outputByte( data[count] ) ;  // Your low-level output function here.
+//   // }
+//   return len;
+// }

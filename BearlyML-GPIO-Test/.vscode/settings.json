@@ -1,5 +1,7 @@
 {
   "files.associations": {
-    "main.h": "c"
-  }
+    "main.h": "c",
+    "bearlyml_hal.h": "c"
+  },
+  "cortex-debug.registerUseNaturalFormat": false
 }
