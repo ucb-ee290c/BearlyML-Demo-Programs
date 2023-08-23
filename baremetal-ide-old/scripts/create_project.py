@@ -352,7 +352,7 @@ C_SOURCES += $(BSP_DIR)$(CHIP)/src/$(CHIP)_hal_uart.c
         
 
 if __name__ == "__main__":
-    CHIP_NAME = "bearlyml23"
+    CHIP_NAME = "demosoc"
 
     builder = ProjectBuilder(CHIP_NAME)
 

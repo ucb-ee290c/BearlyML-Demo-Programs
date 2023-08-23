@@ -14,12 +14,12 @@
           "serverpath": "openocd",
           "toolchainPrefix": "riscv64-unknown-elf",
           "configFiles": [
-              "${workspaceRoot}/debug/bearlyml23.cfg"
+              "${workspaceRoot}/debug/demosoc.cfg"
           ],
           "searchDir": [],
           "runToEntryPoint": "main",
           "showDevDebugOutput": "none"
-          "svdFile": "${workspaceRoot}/debug/bearlyml23.svd",
+          "svdFile": "${workspaceRoot}/debug/demosoc.svd",
           "numberOfProcessors": 5,
           "currentProcessor": 1
       }
