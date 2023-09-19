@@ -48,18 +48,7 @@
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-const char* get_march(size_t marchid) {
-  switch (marchid) {
-  case 1:
-    return "rocket";
-  case 2:
-    return "sonicboom";
-  case 5:
-    return "spike";
-  default:
-    return "unknown";
-  }
-}
+
 /* USER CODE END 0 */
 
 /**
@@ -68,6 +57,7 @@ const char* get_march(size_t marchid) {
   */
 int main(int argc, char **argv) {
   /* USER CODE BEGIN 1 */
+  uint8_t counter = 0;
   
 	/* USER CODE END 1 */
 
@@ -86,12 +76,14 @@ int main(int argc, char **argv) {
   /* Initialize all configured peripherals */
   /* USER CODE BEGIN 2 */
 
+  // set up GPIO registers
   GPIO_InitTypeDef GPIO_init_config;
   GPIO_init_config.mode = GPIO_MODE_OUTPUT;
   GPIO_init_config.pull = GPIO_PULL_NONE;
   GPIO_init_config.drive_strength = GPIO_DS_STRONG;
   HAL_GPIO_init(GPIOA, &GPIO_init_config, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3);
 
+  // set up UART registers
   UART_InitTypeDef UART_init_config;
   UART_init_config.baudrate = 115200;
   UART_init_config.mode = UART_MODE_TX_RX;
@@ -99,33 +91,23 @@ int main(int argc, char **argv) {
   HAL_UART_init(UART0, &UART_init_config);
 
   HAL_GPIO_writePin(GPIOA, GPIO_PIN_2, 0);
-
-  char str[128];
-  uint8_t counter = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1) {
+    uint64_t mhartid = READ_CSR("mhartid");
+    printf("Hello world from hart %d: %d\n", mhartid, counter);
+    
     HAL_GPIO_writePin(GPIOA, GPIO_PIN_2, 1);
     HAL_delay(100);
 
     HAL_GPIO_writePin(GPIOA, GPIO_PIN_2, 0);
     HAL_delay(100);
 
-
-    uint8_t *ptr = malloc(10);
-
-    printf("malloc: %p\n", ptr);
-    free(ptr);
-
-    char str[128];
-    sprintf(str, "hello world %d\r\n", counter);
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 100);
     counter += 1;
 		/* USER CODE END WHILE */
 	}
-
 	/* USER CODE BEGIN 3 */
 
 	/* USER CODE END 3 */
